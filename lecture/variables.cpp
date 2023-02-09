@@ -6,8 +6,53 @@ All about variables
 
 
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
+
+//lecture 9Feb2023 working with variables
+
+int main() {
+    float num1, num2;
+    int stage=0;
+    int incorrectGuess = 0;
+    stage=incorrectGuess;
+
+    cout << "please enter two numbers: ";
+    cin >> num1 >> num2;
+
+    printf("%.02f + %.02f = %.02f\n", num1, num2, num1+num2);
+
+    cout << stage << endl;
+    incorrectGuess=incorrectGuess+1;
+    cout << stage << endl;
+    incorrectGuess=incorrectGuess+1;
+    cout << stage << endl;
+
+}
+
+// int main() {
+
+//     double num1, num2;
+
+//     cout << "please enter two numbers: ";
+//     cin >> num1 >> num2;
+
+//     cout << setw(4) << num1 << setw(4) << num2 << endl; 
+
+//     cout << setfill('-');
+//     cout << setw(40) << " " << endl;
+//     cout << setfill(' ') << setprecision(20) ;
+//     cout << setw(20) << num1 << setw(20) << num2 << endl;
+
+    // string someChar;
+
+    // cout << "please enter a letter: " << endl;
+    // cin >> someChar;
+
+    // cout << toupper(someChar) ;
+
+// }
 
 
 
@@ -90,28 +135,28 @@ using namespace std;
 
 
 //experimenting with 'getline' stores string value to temporary storage, ends after stream ends
-int main(){
+// int main(){
 
-    string firstname;
-    string lastname;
-    string fullname;
+//     string firstname;
+//     string lastname;
+//     string fullname;
 
-    cout << "Please enter first and last name: ";
-    cin >> firstname >> lastname;
+//     cout << "Please enter first and last name: ";
+//     cin >> firstname >> lastname;
 
-    // cout << "please enter first name: ";
-    // getline(cin, firstname);
-    // cin >> firstname;
+//     // cout << "please enter first name: ";
+//     // getline(cin, firstname);
+//     // cin >> firstname;
 
-    // cout << "please enter last name: ";
-    // getline(cin, lastname);
-    // cin >> lastname;
+//     // cout << "please enter last name: ";
+//     // getline(cin, lastname);
+//     // cin >> lastname;
 
-    fullname = firstname + " " + lastname;
-    cout << "Welcome " << fullname << endl;
+//     fullname = firstname + " " + lastname;
+//     cout << "Welcome " << fullname << endl;
 
 
-}
+// }
 
 // int main(){
 //     int num1;
