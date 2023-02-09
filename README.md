@@ -1,15 +1,16 @@
-# CS1-btwomer
-lab #1
-name: STD IO LAB
-date : 02/07/2023
-progress: 100%
-self-grade: XX%
+# CS1-btwomer <br /> Brendan Womer
+## lab 1<br />
+||name:      ||STD IO LAB     <br />
+||date :     || 02/07/2023    <br />
+||due date   ||10/02/2023     <br />
+||progress:  || 100%          <br />
+||location   ||               <br />
+||self-grade:|| XX%           <br />
 
 
+<!-- name Brendan 
 
-name Brendan 
-
-name |lab1|
+name |lab #1|
 description |  |
 due date | |
 status
@@ -18,3 +19,4 @@ self grade
 notes
 
 ## lab X
+ -->
