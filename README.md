@@ -9,9 +9,9 @@ self-grade: XX%
 
 name Brendan 
 
-name |lab1
-description
-due date
+name |lab1|
+description |  |
+due date | |
 status
 location
 self grade
