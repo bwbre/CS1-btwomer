@@ -11,7 +11,7 @@ using namespace std;
 
 
 
-//experimenting with 'Escape Sequences' 
+//experimenting with 'Escape Sequences' THEY MUST BE IN A STRING OR CHAR (' ' OR " ")
 // \n - new line
 // \ - back slash
 // \t - tab
@@ -19,26 +19,47 @@ using namespace std;
 // \' - single quote
 // \" - double quote
 
-int main(){
+// int main(){
 
-    int num1, num2;
+//     int num1, num2;
+//     float fnum1, fnum2;
 
-    cout << "Please enter number1: ";
-    cin >> num1;
 
-    cout << "please enter numer2: ";
-    cin >> num2;
+//     cout << "Please enter number1: ";
+//     cin >> num1;
+//     // fnum1 = float(num1);
 
-    cout << num1 << " + " << " = " << num1 + num2 << endl;
-    cout << num1 << " - " << " = " << num1 - num2 << endl;
-    cout << num1 << " * " << " = " << num1 * num2 << endl;
-    cout << num1 << " / " << " = " << num1 / num2 << endl;
-    cout << num1 << " & (/) " << " = " << num1 & num2 << endl;
+//     cout << "please enter numer2: ";
+//     cin >> num2;
+//     // fnum2 = float(fnum2);
 
+//     cout << num1 << " + " << " = " << num1 + num2 << endl;
+//     cout << num1 << " - " << " = " << num1 - num2 << endl;
+//     cout << num1 << " * " << " = " << num1 * num2 << endl;
+//     cout << num1 << " / " << " = " << num1 / num2 << endl;
+//     // cout << num1 << " & (/) " << " = " << float(num1) & num2 << endl; //data type conversion to float
+
+
+
+// }
+
+
+int main() {
+
+    int inputSeconds;
+    int numHours, numMins, numSeconds;
+
+    cout << "How many seconds are there: ";
+    cin >> inputSeconds;
+
+    numHours = inputSeconds/3600;
+    numMins = (inputSeconds/60)%60;
+    numSeconds = inputSeconds%60;
+
+    cout << "from " << inputSeconds << " you have " << numHours << "hours  " << numMins << "Min " << numSeconds << "Seconds \n";
 
 
 }
-
 
 // // int main(){
 //     string line3;
