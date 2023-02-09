@@ -44,22 +44,22 @@ using namespace std;
 // }
 
 
-int main() {
+// int main() {
 
-    int inputSeconds;
-    int numHours, numMins, numSeconds;
+//     int inputSeconds;
+//     int numHours, numMins, numSeconds;
 
-    cout << "How many seconds are there: ";
-    cin >> inputSeconds;
+//     cout << "How many seconds are there: ";
+//     cin >> inputSeconds;
 
-    numHours = inputSeconds/3600;
-    numMins = (inputSeconds/60)%60;
-    numSeconds = inputSeconds%60;
+//     numHours = inputSeconds/3600;
+//     numMins = (inputSeconds/60)%60;
+//     numSeconds = inputSeconds%60;
 
-    cout << "from " << inputSeconds << " you have " << numHours << "hours  " << numMins << "Min " << numSeconds << "Seconds \n";
+//     cout << "from " << inputSeconds << " you have " << numHours << "hours  " << numMins << "Min " << numSeconds << "Seconds \n";
 
 
-}
+// }
 
 // // int main(){
 //     string line3;
@@ -90,13 +90,14 @@ int main() {
 
 
 //experimenting with 'getline' stores string value to temporary storage, ends after stream ends
-// int main(){
-    // string firstname;
-    // string lastname;
-    // string fullname;
+int main(){
 
-    // cout << "Please enter name with spaces ":
-    // cin >> firstname >> lastname;
+    string firstname;
+    string lastname;
+    string fullname;
+
+    cout << "Please enter first and last name: ";
+    cin >> firstname >> lastname;
 
     // cout << "please enter first name: ";
     // getline(cin, firstname);
@@ -106,11 +107,11 @@ int main() {
     // getline(cin, lastname);
     // cin >> lastname;
 
-    // fullname = firstname + " " + lastname;
-    // cout << "Welcome " << fullname << endl;
+    fullname = firstname + " " + lastname;
+    cout << "Welcome " << fullname << endl;
 
 
-// }
+}
 
 // int main(){
 //     int num1;
