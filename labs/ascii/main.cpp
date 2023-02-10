@@ -24,23 +24,29 @@ int main()
     //FIXME4: prompt user to enter their name and store the value in variable *FIXED*
     string name;
     cout << "Hello, please enter your name: ";
-    getline (cin, name);
+    getline (cin, name); // using getline since there may be two values put in
 
     //FIXME5: greet the name using the variable as the following output *FIXED*
     //must output: Nice meeting you, <name>! *FIXED*
     cout << "Nice meeting you, " << name << endl;
 
-    // int nameLength = length name;
 
-    int namelength = name.length();
-    int spaces = 16-nameLength;
-    name.append(spaces, ' ' )
+ /* When making the ASCII art i found that the length of a user's name would affect the strictly 
+ defined string in the line after the name is called. To fix this I wanted the distance from the
+ end of "by:" to the "*" to be the same. So i added X amount of spaces after the name so that the
+  distance is always the same.  */
+
+
+    int namelength = name.length(); //Storing length of the inputed name to be used later
+    int spaces = 19-namelength; //finding the difference between the ideal space and the length of the name
+    name.append(spaces, ' ' ); //add ' ' to the end of string name, (spaces) numbers of times
+    cout << name;
 
     cout << "Hope you like my Tom & Jerry ASCII art...\n\n";
 
-    string line1 = "  | \\_/|        *****************************    ( \\_/)\n";
-    string line2 = " /  @  @ \\     *         ASCII Lab         *    (='.'=)\n";
-    string line3 = "( >  0  < )     *     By: " + name + "* 	(  \" )_(  \" )\n";
+    string line1 = "  | \\_/|        *****************************     ( \\_/)\n";
+    string line2 = " /  @  @ \\      *         ASCII Lab         *     (='.'=)\n";
+    string line3 = "( >  0  < )     *     By:" + name + "*   ( \" )_(  \" )\n";
     string line4 = "   >>x<<        *         CSCI 111          *\n";
     string line5 = " /   O   \\      ***************************** \n";
 
