@@ -1,5 +1,7 @@
 /*name: Brendan Womer
-This is my HW1 std-io assignment. today we will be drawing the visual stages of the gallows for a hang man game.
+HW1 std-io assignment.
+today we will be drawing the stages of the gallows for a hang man game. I will ask the user for their name, then draw each stage
+the stage title/number above.
 */
 
 #include <iostream>
@@ -11,11 +13,13 @@ int main(){
     string firstName;
     string lastName;
 
-    cout << "Hello and welcome to the early stages of my hangman game.\n\nPlease enter your first and last name separated by spaces: ";
-    getline( cin, (firstName, lastName)); /* there has to be a better way of doing this, requiring spaces is awkward*/
+    cout << "Hello and welcome to the early stages of my hangman game.\n\nPlease enter your name: ";
+    getline( cin, (firstName, lastName)); //greet user and prompt for name
 
-    cout << "Hello " << firstName << " " << lastName << "\n\n";
+    cout << "Hello " << firstName << " " << lastName << "\n\n"; 
 
+
+//These are the variables that each stage is saved to.
     string stage1 = "Stage 1\n\n     |-----------------\n     |/        |\n     |\n     |\n     |\n     |\n     |\n ===========\n";
     string stage2 = "Stage 2\n\n     |-----------------\n     |/        |\n     |         O\n     |\n     |\n     |\n     |\n ===========\n";
     string stage3 = "stage 3\n\n     |-----------------\n     |/        |\n     |         O\n     |         |\n     |\n     |\n     |\n ===========\n";
@@ -26,7 +30,7 @@ int main(){
 
 
 
-
+//the stages is then drawn 
     cout << stage1 << endl;
     cout << stage2 << endl;
     cout << stage3 << endl;
@@ -35,7 +39,9 @@ int main(){
     cout << stage6 << endl;
     cout << stage7 << endl;
 
-
+//program wont end until user presses enter to exit the program.
+    cout << "please press enter to exit."
+    cin.ignore(0, '\n');
 
 
 
