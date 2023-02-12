@@ -12,9 +12,9 @@ int main(){
     string lastName;
 
     cout << "Hello and welcome to the early stages of my hangman game.\n\nPlease enter your first and last name separated by spaces: ";
-    cin >> firstName >> lastName; /* there has to be a better way of doing this, requiring spaces is awkward*/
+    getline( cin, (firstName, lastName)); /* there has to be a better way of doing this, requiring spaces is awkward*/
 
-    cout << "Hello " << firstName << " " << lastName << endl;
+    cout << "Hello " << firstName << " " << lastName << "\n\n";
 
     string stage1 = "Stage 1\n\n     |-----------------\n     |/        |\n     |\n     |\n     |\n     |\n     |\n ===========\n";
     string stage2 = "Stage 2\n\n     |-----------------\n     |/        |\n     |         O\n     |\n     |\n     |\n     |\n ===========\n";
