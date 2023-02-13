@@ -9,7 +9,7 @@
 <details>
 <summary>Labs</summary>
 <br>
-    Lab1 <br/>
+    --Lab1 <br/>
 name:       || STD IO LAB1     <br />
 description || Draw the specified ASCII art <br />
 date :      || 02/10/2023    <br />
@@ -24,7 +24,7 @@ Notes:      || Draw specified ASCII art as well as the box with text between and
 <details>
 <summary>Homework</summary>
 <br>
-    Homework 01 <br/>
+    --Homework 01 <br/>
 name:      || STD IO LAB     <br />
 date :     || 02/13/2023    <br />
 due date   || 02/13/2023     <br />
