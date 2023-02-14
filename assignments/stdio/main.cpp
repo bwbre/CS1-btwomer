@@ -40,7 +40,7 @@ int main(){
     cout << stage7 << endl;
 
 //program wont end until user presses enter to exit the program.
-    cout << "please press enter to exit."
+    cout << "please press enter to exit.";
     cin.ignore(0, '\n');
 
 
