@@ -50,7 +50,7 @@ int main()
     string line4 = "   >>x<<        *         CSCI 111          *\n";
     string line5 = " /   O   \\      ***************************** \n";
 
-    cout << line1 << line2 << line3 << line4 << line5<< endl;
+    cout << line1 << line2 << line3 << line4 << line5 << endl;
 
     //FIXME6: use variable to print the second line line of the graphic *FIXED*
     //FIXME7: print the third line of the graphics *FIXED*
@@ -59,8 +59,8 @@ int main()
     //Note: You can add more lines or print more ASCII arts of your choice if you'd like...
 
     cout << "\nGood bye... hit enter to exit the program: " << '\n';
-    // cin.ignore ( 2000 , '\n');
-    // cout << 0;
+    cin.ignore( 200 , '\n');
+    cout << "Later \n";
     //FIXME10: make the console wait for user input
 
     return 0; //exit program by returning 0 status to the system
