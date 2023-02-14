@@ -28,8 +28,6 @@ int main(){
     string stage6 = "stage 6\n\n     |-----------------\n     |/        |\n     |         O\n     |        /|\\\n     |        /\n     |          \n     |\n ===========\n";
     string stage7 = "stage 7\n\n     |-----------------\n     |/        |\n     |         O\n     |        /|\\\n     |        / \\\n     |          \n     |\n ===========\n";
 
-
-
 //the stages is then drawn 
     cout << stage1 << endl;
     cout << stage2 << endl;
@@ -42,6 +40,5 @@ int main(){
 //program wont end until user presses enter to exit the program.
     cout << "please press enter to exit.";
     cin.ignore(0, '\n');
-
 
 }
