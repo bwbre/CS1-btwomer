@@ -12,12 +12,10 @@ CXXFLAGS = -c -g -Wall -std=c++17
 PROGRAM = libraries.out
 
 # list .cpp files separated by space
-CPPFILES = rectangle.cpp 
+CPPFILES = functions.cpp 
 
 # make all rule/default rule that'll be run when we run "make"
 # first compile each file to object file
-
-
 # then make a single binary/executable program
 all:
 	$(CXX) $(CXXFLAGS) $(CPPFILES)

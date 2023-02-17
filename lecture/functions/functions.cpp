@@ -35,12 +35,7 @@ using namespace std;
 // template <class type1, class type2>
 
 
-// type1 addnums(type1 num1, type2 num2) {
-//     type2 answer;
-//     answer = num1 + num2;
-//     return answer;
 
-// }
 
 
 /* function "prototype" before the actual function is defined allow it avoid issues of 
@@ -51,7 +46,17 @@ void sayhello();
 void saybye();
 
 template <class t1, class t2>
-t1 addnums(t1, t2);
+t1 addnums(t1 n1, t2 n2){
+    return n1 + n2;
+
+};
+
+// t1 addnums(t1 num1, t2 num2) {
+//     type2 answer;
+//     answer = num1 + num2;
+//     return answer;
+
+// }
 
 void sayhello() {
     cout << "hello world" << endl;
@@ -63,11 +68,8 @@ void saybye() {
     sayhello();
 }
 
-//this is for organizing the reference passing example
-void random(){
-    
 
-
+/**/
 void prompt(int&);
 
 
@@ -77,7 +79,8 @@ int main() {
 
     int n1, n2; 
 
-    cout << "mem address for n1 and n2 " << &n1 << " " << &n2 << endl;
+
+    cout << "mem address for n1 and n2 begin main() " << &n1 << " " << &n2 << endl;
   
     prompt(n1);
         cout << "mem address for n1 and n2 after prompt(n1) in main " << &n1 << " " << &n2 << endl;
@@ -94,16 +97,14 @@ int main() {
     return 0;
 }
 
-void prompt(int &n1) {
-    cout << "mem address for n1 inside promp() " << &n1 << endl;
+void prompt(int &n1, int &n2) {
+    cout << "mem address for n1 inside promp() " << &n1 << "  and it = " << n1 <<  endl;
+    cout << "mem address for n2 inside promp() " << &n2 << "  and it = " << n2 <<  endl;
 
 }
 
-template <class t1, class t2>
-t1 addnums(t1 num1, t2 num2) {
-    return num1 + num2;
-}
-}
+
+
 
 
 
