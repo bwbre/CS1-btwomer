@@ -52,7 +52,7 @@ int main() //main entry function that returns 0
 
 	// the following code may be required to ma ke your console pause...
 	cout << "Good bye...\nHit enter to exit the program!" << '\n';
-	cin.ignore(1000, '\n'); //ignore 1000 chars or until \n whichever comes first
+	cin.ignore(1 , '\n'); //ignore 1000 chars or until \n whichever comes first
 	// make the console wait for user input
 	cin.get();
 	return 0;

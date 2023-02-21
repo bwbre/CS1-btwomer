@@ -7,8 +7,9 @@ CXX = g++
 # put all the required flags separated by space
 CXXFLAGS = -c -g -Wall -std=c++17
 
-# the build target executable file; .exe is not required
-PROGRAM = circle.exe
+# there is a reason for using .out
+# the build target executable file; .exe is not required -- jeremy uses .out
+PROGRAM = circle.out
 
 # list .cpp files separated by space
 CPPFILES = circle.cpp
@@ -25,7 +26,7 @@ all:
 clean:
 	rm -f $(PROGRAM) *.o
 
-# FIXME
+# FIXME #FIXED####
 # add a rule to run the program
 run:
 	./$(PROGRAM)

@@ -1,4 +1,3 @@
-# ----------THIS IS A TEMPLATE---------
 # compiler name
 CXX = g++
 # g++ compiler flags
@@ -10,10 +9,10 @@ CXXFLAGS = -c -g -Wall -std=c++17
 
 #there is a reason for using .out
 # the build target executable file; .exe is not required -- jeremy uses .out
-PROGRAM = .out
+PROGRAM = conditionals.out
 
 # list .cpp files separated by space
-CPPFILES = .cpp 
+CPPFILES = conditionals.cpp 
 
 # make all rule/default rule that'll be run when we run "make"
 # first compile each file to object file
