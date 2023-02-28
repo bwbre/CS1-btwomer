@@ -9,15 +9,27 @@
 <details>
 <summary>Labs</summary>
 <br>
-    --Lab1 <br/>
-Name:       || STD IO LAB1     <br />
+    --Lab 1 <br/>
+Name:        || STD IO LAB1     <br />
 Description: || Draw the specified ASCII art <br />
-Date:      || 02/10/2023    <br />
+Date:        || 02/10/2023    <br />
 Due Date:    || 02/10/2023     <br />
-Progress:   || 100%          <br />
+Progress:    || 100%          <br />
 Location:    || CS1-btwomer/labs/ascii/  <br />
-Self-Grade: || 100%          <br />
-Notes:      || Draw specified ASCII art as well as the box with text between and save as main.cpp in appropriate folder
+Self-Grade:  || 100%          <br />
+Notes:       || Draw specified ASCII art as well as the box with text between and save as main.cpp in appropriate folder
+<br /><br />
+
+
+--Lab 2 <br/>
+Name:        || Circle    <br />
+Description: || Calculate the circumference and area of a given radius <br />
+Date:        || 02/21/2023    <br />
+Due Date:    || 02/21/2023     <br />
+Progress:    || 100%          <br />
+Location:    || CS1-btwomer/labs/circle/  <br />
+Self-Grade:  || 100%          <br />
+Notes:       || Prompt user for a radius, then calculate and output the circumference and area of the circle with the given radius.
 <br />
 </details>
 
