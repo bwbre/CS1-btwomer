@@ -31,4 +31,4 @@ clean:
 
 # add a rule to run the program
 run:
-	./$(program)
+	./$(PROGRAM)

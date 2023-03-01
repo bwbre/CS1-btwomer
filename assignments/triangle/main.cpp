@@ -67,17 +67,7 @@ string testtriangle(float side1, float side2, float side3) {
     //using if else statements to test the combinations of sides.
     if (((side1 + side2) > side3) && ((side2 + side3) > side1) && ((side3 + side1) > side2) ) {
         result = "The triangle exists. \n";
-
         }
-
-        // else if ((side2 + side3) > side1) {
-        // cout << "The triangle exists.";
-        // }
-
-        // else if ((side3 + side1) > side2) {
-        // cout << "The triangle exists.";
-        // }
-
         else {
         result = "The triangle doesn't exists. \n";
     }
