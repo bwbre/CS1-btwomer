@@ -38,19 +38,19 @@ Notes:       || Prompt user for a radius, then calculate and output the circumfe
 <br>
     ----Homework 01 <br/>
 Name:      || STD IO LAB     <br />
-Date :     || 02/13/2023    <br />
+Date :     || 02/13/2023     <br />
 Due Date   || 02/13/2023     <br />
-Progress:  || 100%          <br />
+Progress:  || 100%           <br />
 Location   || CS1-btwomer/assignments/stdio  <br />
-Self-Grade:|| 100%          <br />
+Self-Grade:|| 100%           <br />
 Notes:     || Ask for user input, greet using name, then Output/draw all 7 stages of the hangman game.<br/>
 
 <br/>    ----Homework 02 <br/>
 Name:      || Triangles     <br />
 Date :     || 02/28/2023    <br />
-Due Date   || 02/28/2023     <br />
+Due Date   || 02/28/2023    <br />
 Progress:  || 100%          <br />
-Location   || CS1-btwomer/assignments/stdio  <br />
+Location   || CS1-btwomer/assignments/triangle  <br />
 Self-Grade:|| 100%          <br />
 Notes:     || prompt for 3 sides of a triangle. calculate and output both the perimeter and area. then, check whether or not the triangle given exists.<br/>
 </details>
