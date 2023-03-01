@@ -1,11 +1,12 @@
 /*
-created by: Brendan Womer
+    Hw 3: Triangles   
+    Updated By: Brendan Womer
+    Date: 03/27/2023
+    
 
-HW 3: Area and Perimeter of a Triangle
-not a moment after 2/27/2023
+    notes: Will prompt the user for the length of three sides of a triangle, then will calculate and output the area and 
+    perimeter-- each with their own function.
 
-notes: Will prompti user for three sides, then will calculate and print the output of
-the triangles area and perim
 */
 
 //any include's and namespaces used
@@ -18,53 +19,40 @@ using namespace std;
 //template fcns
 float calcarea(float, float, float, float);
 float calcperim(float, float, float);
-float promptside(float, float, float);
 
 
 //main fcn
 int main() {
     float side1, side2, side3, area, perim;
 
+    //prompt user for 3 values of the sides of the triangle and store the inputs to side1 - 3.
     cout << "please enter three sides of a triangle: ";
-
     cin >> side1 >> side2 >> side3;
 
-    // cout << "this is cout before calc perim in main()-- side1: " << side1 << " side2: " << side2 << " side3: " << side3 << endl;
-
+    /*call the function that calculates the perimeter of the triangle.
+     *this must be done first since the perimeter is used in calculating the area* */
     perim = calcperim(side1, side2, side3);
     cout << "Perimeter of triangle is: " << perim << endl;
 
-    cout << "Area of triangle is: " << calcarea(side1, side2, side3, perim) << endl;
-
+    /*call the function that calculates the area of the triangle *note: it uses the output from calcperim() 
+    as an argument since its used in the function* */
+    area = calcarea(side1, side2, side3, perim);
+    cout << "Area of triangle is: " << area << endl;
 
     return 0;
-
 }
 
 float calcperim(float s1, float s2, float s3) {
-    // cout << "\ninside of calc perim" << endl; //works well
-
-    //assigning float perim to the formula of triangle perim, with the sides that were given in main()
+    //assigning float perim to the formula of triangle perimeter, with the sides acting as parameters that were given in main()
     float perim = (.5*(s1+s2+s3));
-    // cout << "in calcperim -- calculating.... perim = " << perim << endl; // Works well
-
     return perim;
 }
 
+
 float calcarea(float s1, float s2, float s3, float p) {
-    // cout << "\ninside calcarea \n";
-
-    float area = sqrt(p*(p-s1)*(p-s2)*(p-s3));
-
-    // cout << "inside calcarea()-- area of a triangle with the given sides is: " << area << endl;
+    // create float that will store area and define it using the formula for finding area of a triangle.
+    float area; 
+    area = sqrt(p*(p-s1)*(p-s2)*(p-s3));
 
     return area;
 }
-
-// float promptside(float side1, float side2, float side3) {
-//     cout << "Please input 3 sides of a given triangle: ";
-//     getline(cin, side1, side2, side3);
-//     cout << endl << "you inputted: \n" << "Side 1: " << side1 << endl << "Side 2: " << side2 << endl << "side 3: " << side3 << endl;
-
-//     return side1, side2, side3;
-// }

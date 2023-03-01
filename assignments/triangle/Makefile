@@ -13,7 +13,7 @@ CXXFLAGS = -c -g -Wall -std=c++17
 PROGRAM = triangle.out
 
 # list .cpp files separated by space
-CPPFILES = triangle.cpp 
+CPPFILES = main.cpp 
 
 # make all rule/default rule that'll be run when we run "make"
 # first compile each file to object file
