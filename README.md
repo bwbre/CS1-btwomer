@@ -9,7 +9,7 @@
 <details>
 <summary>Labs</summary>
 <br>
-    --Lab 1 <br/>
+    ----Lab 1 <br/>
 Name:        || STD IO LAB1     <br />
 Description: || Draw the specified ASCII art <br />
 Date:        || 02/10/2023    <br />
@@ -21,7 +21,7 @@ Notes:       || Draw specified ASCII art as well as the box with text between an
 <br /><br />
 
 
---Lab 2 <br/>
+----Lab 2 <br/>
 Name:        || Circle    <br />
 Description: || Calculate the circumference and area of a given radius <br />
 Date:        || 02/21/2023    <br />
@@ -36,7 +36,7 @@ Notes:       || Prompt user for a radius, then calculate and output the circumfe
 <details>
 <summary>Homework</summary>
 <br>
-    --Homework 01 <br/>
+    ----Homework 01 <br/>
 Name:      || STD IO LAB     <br />
 Date :     || 02/13/2023    <br />
 Due Date   || 02/13/2023     <br />
@@ -45,7 +45,7 @@ Location   || CS1-btwomer/assignments/stdio  <br />
 Self-Grade:|| 100%          <br />
 Notes:     || Ask for user input, greet using name, then Output/draw all 7 stages of the hangman game.<br/>
 
-    --Homework 02 <br/>
+<br/>    ----Homework 02 <br/>
 Name:      || Triangles     <br />
 Date :     || 02/28/2023    <br />
 Due Date   || 02/28/2023     <br />
