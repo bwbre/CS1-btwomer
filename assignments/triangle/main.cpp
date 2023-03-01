@@ -29,14 +29,14 @@ int main() {
 
     cin >> side1 >> side2 >> side3;
 
-    cout << "this is cout before calc perim in main()-- side1: " << side1 << " side2: " << side2 << " side3: " << side3 << endl;
+    // cout << "this is cout before calc perim in main()-- side1: " << side1 << " side2: " << side2 << " side3: " << side3 << endl;
 
-    cout << "in main(), result of calcperim() is: " << calcperim(side1, side2, side3) << endl;
     perim = calcperim(side1, side2, side3);
-    cout << "in main(), result of calcarea() is: " << calcarea(side1, side2, side3, perim) << endl;
+    cout << "Perimeter of triangle is: " << perim << endl;
+
+    cout << "Area of triangle is: " << calcarea(side1, side2, side3, perim) << endl;
 
 
-    // calcarea(side1, side2, side3, perim);
     return 0;
 
 }
@@ -52,11 +52,11 @@ float calcperim(float s1, float s2, float s3) {
 }
 
 float calcarea(float s1, float s2, float s3, float p) {
-    cout << "\ninside calcarea" << endl;
+    // cout << "\ninside calcarea \n";
 
     float area = sqrt(p*(p-s1)*(p-s2)*(p-s3));
 
-    cout << s1 << s2 << s3 << "area of a triangle with the given sides: ";
+    // cout << "inside calcarea()-- area of a triangle with the given sides is: " << area << endl;
 
     return area;
 }
