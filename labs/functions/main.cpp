@@ -32,7 +32,7 @@ const float epsilon = 1e-5; // 0.00001 accuracy upto 5 decimal points; error of 
 double findDistance(int, int, int, int);
 
 // test function that runs automated testing
-void test();
+void test(int, int, int, int);
 
 // function clears the screen system call
 // NOTE: system call is not a security best pracice!
@@ -49,24 +49,45 @@ int main()
 {
     int x1, y1, x2, y2; // variables to store two points (x1, y1) and (x2, y2)
     char ch;
+    char promptend;
 
     //FIXME-bonus - 10 bonus points - add loop until user wants to quit
     // the loop will execute the following block of code
+    while (! *promptend == 'y' && *promptend == 'Y')
     {
         clearScreen();
         cout << "Program calculates distance between 2 points on a 2D coordinate." << endl;
+
+
         cout << "Enter a point in the form (x, y): ";
         // parse the input stream
         cin >> ch >> x1 >> ch >> y1 >> ch; // value stored in ch is ignored
         printf("(x1, y1) = (%d, %d)\n", x1, y1);
 
-        cout << "Enter a second point in the form (x, y): ";
+
         //FIXME3 - Read/parse the second point and store data into variables x2 and y2
+        cout << "Enter a second point in the form (x, y): ";
+        cin >> ch >> x2 >> ch >> y2 >> ch;
+        printf("(x2, y2) = (%d, %d)", x1, x2);
+
+
         //FIXME4 - Call test function
+        test();
+
 
         //FIXME5 - call findDistance function passing proper arguments
-        //FIXME6 – Using printf function display the returned distance with proper description
-    }
+        double distance;
+        distance = findDistance(x1, y1, x2, y2);
+
+
+        //FIXME6 – Using printf function display the returned distance with proper description 
+        printf(distance);
+
+        cout << "Would you like to calculate another set of points? enter Y/N";
+        cin >> *promptend;
+
+    } 
+    else {break;}
 
     cin.ignore(1000, '\n');
     cout << "Enter to quit the program: ";
@@ -77,18 +98,34 @@ int main()
 
 double findDistance(int x1, int y1, int x2, int y2)
 {
-    // FIXME7 - Find the distance between (x1, y1) and (x2, y2)
-    // following the algorithm in step 1
-    // return the calculated distance
-    return 0.000000;
+    // FIXME7 - Find the distance between (x1, y1) and (x2, y2)             ------*FIXED*------
+    double distance = (sqrt(((y2-y1)(y2-y1))+sqrt(((x2-x1)(x2-x1)))));        
+    return distance;
 }
 
 // test function that test findDistance function with 3 test cases
-void test()
+void test() 
 {
-    float result =  findDistance(4, 3, 5, 1);
-    float expected = 2.236067f;
+    //test case 1
+    float result; 
+    result = findDistance(4, 3, 5, 1);
+    float expected; 
+    expected = 2.236067f;
     assert( fabs(result - expected) <= epsilon); //accept the result if it's less than the error of margin
-    // FIXME8 - add at least two more test cases
+
+    //test case 2
+    result = findDistance(3, 4, 5, 6);
+    float expected;
+    expected = 2.828427f;
+    assert( fabs(result - expected) <= epsilon); //accept the result if it's less than the error of margin
+
+    //test case 3
+    result = findDistance(7, 8, 10, 11);
+    float expected; 
+    expected = 4.242640f;
+    assert( fabs(result - expected) <= epsilon); //accept the result if it's less than the error of margin
+
+    // FIXME8 - add at least two more test cases             -------*FIXED*-------
+
     cerr << "all tests passed..." << endl;
 }
