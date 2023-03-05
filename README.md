@@ -31,6 +31,18 @@ Location:    || CS1-btwomer/labs/circle/  <br />
 Self-Grade:  || 100%          <br />
 Notes:       || Prompt user for a radius, then calculate and output the circumference and area of the circle with the given radius.
 <br />
+
+----Lab 3 <br/>
+Name:        || functions    <br />
+Description: || Calculate the distance between two sets of ordered pairs <br />
+Date:        || 03/04/2023    <br />
+Due Date:    || 03/04/2023     <br />
+Progress:    || 100%          <br />
+Location:    || CS1-btwomer/labs/functions/  <br />
+Self-Grade:  || 100%          <br />
+Notes:       || Prompt user for two sets of ordered pairs. call a function to calculate the distance, and the the function works against a known set of points and distances.
+<br />
+
 </details>
 
 <details>
