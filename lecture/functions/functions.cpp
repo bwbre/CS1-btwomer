@@ -47,7 +47,7 @@ void saybye();
 
 template <class t1, class t2>
 t1 addnums(t1 n1, t2 n2){
-    return n1 + n2;
+    return float(n1 + n2);
 
 };
 
