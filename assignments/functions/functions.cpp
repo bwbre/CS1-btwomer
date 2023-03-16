@@ -21,7 +21,8 @@ CS1 - HW3 Functions
 
 using namespace std;
 
-//attempt to create class template of data type T
+
+
 //Template promptuser() and a long series of templated fcns to calculate
 void promptuser(float&, float&);
 void testfcn();
@@ -67,6 +68,9 @@ template <class T, class T2>
 //calculate the square root of n1
 template <class T> 
     T calcsqrt(T n1) {
+
+        //note: a real square root only exists if the value is equal to or greater than 0
+        //here we test to see if n1 meets this criteria
         if (n1 >= 0) {
             return sqrt(n1);
         }
@@ -79,28 +83,28 @@ template <class T>
 //templated fcn to call all the other calculation functions
 template <class T>
 T callemall(T n1,T n2) {
+    cout << n1 << " + " << n2 << " = " << calcsum<float>(n1, n2) << endl;
+    cout << n1 << " * " << n2 << " = " << calcmu<float>(n1, n2) << endl;
+    cout << n1 << " / " << n2 << " = " << calcdivision<float>(n1, n2) << endl;
+    cout << n1 << " - " << n2 << " = " << calcdifference<float>(n2, n1) << endl;
+    cout << n1 << " % " << n2 << " = " << calcremainder<int>(n1, n2) << endl;
+    cout << n1 << " to the power of " << n2 << " = " << calcpower1to2<float>(n1, n2) << endl;
+    cout << n2 << " to the power of " << n1 << " = " << calcpower1to2<float>(n2, n1) << endl;
 
-    //create variables for the things being checked, then created an associated pointer, THEN define ptr to it's corresponding variable's memory address
-    // float sum = calcsum<float>(n1, n2); float *ptrsum; ptrsum = &sum;
-    // float mult = calcmu<float>(n1, n2); float *ptrmult; ptrmult = &mult;
-    // float div = calcdivision<float>(n1, n2); float *ptrdiv; ptrdiv = &div;
-    // float dif = calcdifference<float>(n1, n2); float *ptrdif; ptrdif = &dif;
-    // float rem = calcremainder<int>(n1, n2); float *ptrrem; ptrrem = *rem;
-    // float pow1t2 = calcpower1to2<float>(n1, n2); float *ptrpow1t2; ptrpow1t2 = &pow1t2;
-    // float sqrt = calcsqrt<float>(n1); float *ptrsqrt; ptrsqrt = &sqrt;
-
-    //print the fcns for the calculations in an inefficient way.
-    cout << "n1 + n2 = " << calcsum<float>(n1, n2) << endl;
-    cout << "n1 * n2 = " << calcmu<float>(n1, n2) << endl;
-    cout << "n1 / n2 = " << calcdivision<float>(n1, n2) << endl;
-    cout << "n2 - n1 = " << calcdifference<float>(n1, n2) << endl;
-    cout << "n1 remainder n2: " << calcremainder<int>(n1, n2) << endl;
-    cout << "n1 to the power of n2: " << calcpower1to2<float>(n1, n2) << endl;
+    //there are two potential outputs for this fcn. If it doesn't exist it will print out that it doesnt exist.
     if ( calcsqrt<float>(n1) != bool(0)) {
         cout << "the square root of n1: " << calcsqrt<float>(n1) << endl;
     }
     else {
         cout << "the square root of n1: Does not exist. \n";
+    }
+
+    //do it again for n2
+    if ( calcsqrt<float>(n2) != bool(0)) {
+        cout << "the square root of n2: " << calcsqrt<float>(n2) << endl;
+    }
+    else {
+        cout << "the square root of n2: Does not exist. \n";
     }
 
     return 0;
@@ -111,18 +115,25 @@ T callemall(T n1,T n2) {
 int main(int argc,char *argv[]) {
     //n1 and n2 will be the two numbers that the user inputed
     float n1, n2;
+
     //ptrn1 and ptrn2 will the pointers that point to n1 and n2, respectively.
     float *ptrn1, *ptrn2;
+
     //set pointers 1 and 2 to the memory address of n1 and n2
     ptrn1 = &n1;
     ptrn2 = &n2;
+
     //call fnc to promptuser for n1, n2 and print it out 
     promptuser(*ptrn1, *ptrn2);
 
+    //test function that will check all of the calc functions against a known value in relation to known inputs
     testfcn();
 
     //fcn to call all calculations with the ptr for n1 and n2 -- which is assug
     callemall<float>(*ptrn1, *ptrn2);
+
+
+    //nothing exploded and this is the end.
     printf("\nthe end\n\n");
     return 0;
 }
@@ -131,23 +142,20 @@ int main(int argc,char *argv[]) {
 void promptuser(float &ptrn1,float &ptrn2) { 
     //variable to temporarily hold the floats from the stream.
     float tn1, tn2;
+
+    //prompt user to input 2 numbers that will be used as n1 and n2
     cout << "enter two numbers separated by a spaces: ";
-    cin >> tn1 >> tn2;
+    cin >> tn1 >> tn2; 
+    cout << '\n';
+
+    //assign the pointers found in main to these values so that it may be used throughout the scope of main.
     ptrn1 = tn1;
     ptrn2 = tn2;
 }
 
 void testfcn() {
 
-    //create variables for the things being checked, then created an associated pointer, THEN define ptr to it's corresponding variable's memory address
-    // float sum = calcsum<float>(n1, n2);
-    // float mult = calcmu<float>(n1, n2);
-    // float div = calcdivision<float>(n1, n2);
-    // float dif = calcdifference<float>(n1, n2);
-    // float rem = calcremainder<int>(n1, n2);
-    // float pow1t2 = calcpower1to2<float>(n1, n2);
-    // float sqrt = calcsqrt<float>(n1);
-
+    //create result variable that will be the expected result of the calc functions that are called.
     float result;
 
     // num1 + num2
@@ -173,30 +181,21 @@ void testfcn() {
     result = calcdifference<float>(2, 5);
     assert(result == (3));
 
+    // n1 & n2
     result = calcremainder<int>(25, 7);
     assert(result == 4);
     result = calcremainder<int>(11, 8);
     assert(result == 3);
 
+    //(n1)^n2
     result = calcpower1to2<float, int>(2, 3);
     assert(result == 8);
     result = calcpower1to2<float, int>(1, 5);
     assert(result == 1);
 
+    //sqrt of n1
     result = calcsqrt<float>(100);
     assert(result == (10));
     result = calcsqrt<float>(9);
     assert(result == (3));
-
-
-
-
-    // //print the fcns for the calculations in an inefficient way.
-    // cout << "n1 + n2 = " << calcsum<float>(n1, n2) << endl;
-    // cout << "n1 * n2 = " << calcmu<float>(n1, n2) << endl;
-    // cout << "n1 / n2 = " << calcdivision<float>(n1, n2) << endl;
-    // cout << "n2 - n1 = " << calcdifference<float>(n1, n2) << endl;
-    // cout << "n1 remainder n2: " << calcremainder<int>(n1, n2) << endl;
-    // cout << "n1 to the power of n2: " << calcpower1to2<float>(n1, n2) << endl;
-    // cout << "the square root of n1: " << calcsqrt<float>(n1) << endl;
 }
