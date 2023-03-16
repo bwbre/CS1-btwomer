@@ -18,7 +18,6 @@ void swapnums(int*&, int*&);
 
 int main(int argc, char* argv[]) {
     int n1, n2;
-    int *result;
     int *ptr1, *ptr2;
 
     n1 = 24;
