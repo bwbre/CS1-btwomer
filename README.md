@@ -65,6 +65,16 @@ Progress:  || 100%          <br />
 Location   || CS1-btwomer/assignments/triangle  <br />
 Self-Grade:|| 100%          <br />
 Notes:     || prompt for 3 sides of a triangle. calculate and output both the perimeter and area. then, check whether or not the triangle given exists.<br/>
+
+<br/>    ----Homework 03 <br/>
+Name:      || Functions     <br />
+Date :     || 03/15/2023    <br />
+Due Date   || 03/10/2023    <br />
+Progress:  || 100%          <br />
+Location   || CS1-btwomer/assignments/functions  <br />
+Self-Grade:|| 100%          <br />
+Notes:     || with two numbers given by the user, the program will compute and print various types of equations<br/>
+
 </details>
 
 <!-- name Brendan 
