@@ -240,7 +240,7 @@ bool program() {
             printf("%.2f * %.2f = %.2f", num1, num2, product);
             break;
         }
-        // FIXME13: complete the rest of the cases 4, 6, and 7
+        // FIXME13: complete the rest of the cases 4, 6, and 7              ----
         case 4:
         {
             getTwoNumbers(num1, num2);

@@ -75,6 +75,9 @@ template <class T>
             return sqrt(n1);
         }
         else {
+            /*if it fails it will return a bool value of 0 , this is just a placeholder value to return the equivalent of "false". 
+            Using bool instead of 0 to try and avoid any mistakes with the output being used as an int or float. 
+            I use 0 because in binary, 0 = closed or 0 = false */
             return bool(0);
         }
 
