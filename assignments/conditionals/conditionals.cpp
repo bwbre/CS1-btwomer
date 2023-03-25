@@ -49,8 +49,7 @@ template <class T1>
         //prompt user for 5 numbers, then assign each number to the first 5 positions in the array.
         cout << "\nPlease enter 5 different numbers separated by spaces:  ";
         cin >> nums[0] >> nums[1] >> nums[2] >> nums[3] >> nums[4];
-        cout << "\n--Finished storing values--\n" << endl;
-        // printarray(nums, 5);
+        // cout << "\n--Finished storing values--\n" << endl;
         return 0;
     }
 
@@ -58,10 +57,9 @@ template <class T1>
 template <class T1>
     T1 sum(T1 nums[]) {
         T1 result = (nums[1] + nums[2] + nums[3] + nums[4] + nums[0]);
-        printf("\n%.2f + %.2f + %.2f + %.2f + %.2f = %.2f\n", nums[0], nums[1], nums[2], nums[3], nums[4], result);
         //store the result in element 6 of nums[]
         nums[5] = result;
-        cout << "The sum of all 5 numbers is: " << result << " And num[5] = " << nums[5] << endl;
+
         return result;
     }
 
@@ -79,12 +77,28 @@ template <class T1>
 // will calculate the average and will save the result in the 8th element -- nums[7]
 template <class T1>
     T1 avg(T1 nums[]) {
-        T1 result = (sum(nums) / 5);
+        T1 result = ((sum(nums)) / 5);
         // printf("\n%.2f + %.2f + %.2f + %.2f + %.2f = %.2f\nT", nums[0], nums[1], nums[2], nums[3], nums[4], result);
         nums[7] = result; 
         cout << "\nThe average of all 5 numbers is : " << result << " And num[6] = " << nums[7] << endl;
 
         return 0;
+    }
+template <class T1>
+    T1 definefloor(T1 nums[]) {
+        T1 sumt = sum(nums);
+            // cout << "Sum: " << sumt << endl;
+            int remainder = (int(sumt) % 2);
+        if (remainder == 0 && sumt == 0) {
+            cout << "\nThe sum floor is zero\n";
+        }
+        else if (remainder == 0 && sumt != 0){
+            cout << "\nThe sum floor is even\n";
+        } 
+        else {
+            cout << "\nThe sum floor is odd\n";
+        }
+    return 0;
     }
 
 
@@ -97,11 +111,18 @@ int main() {
     bool keeprunning;
     keeprunning = true;
 
-    cout << "\n--initializing...\n" << endl;
+    // cout << "\n--initializing...\n" << endl;
 
     do {
-        menu(nums);
-        keeprunning = menu(nums);
+        if (keeprunning == true) {
+            // cout << "keep running: " << keeprunning;
+            keeprunning = menu(nums);
+            // cout << "keep running: " << keeprunning;
+        }
+        else {
+            // cout << "\n KEEP RUNNING IS NOT TRUE INSIDE IN MAIN LOOP\n\n";
+            return 0;
+        }
     }
     while (keeprunning == true);
 
@@ -112,14 +133,14 @@ int main() {
     // largestvalue(nums);
     // printarray(nums, 10);
 
-    //debug
+
     cout << "\nGoodbye." <<endl;
     return 0;
 }
 
 
 void printmenu() {
-    cout << "\n\n\n\n\nPlease select one of the following options:\n\n";
+    cout << "\n\n\n\nPlease select one of the following options:\n\n";
     cout << "1. Calculate the sum of the 5 numbers.\n";
     cout << "2. Calculate the product of the 5 numbers.\n";
     cout << "3. Calculate the average of the 5 numbers.\n";
@@ -127,7 +148,8 @@ void printmenu() {
     cout << "5. Find the largest value among the 5 numbers.\n";
     cout << "6. Find whether the floor of sum of the 5 numbers is even, odd, or 0.\n";
     cout << "7. Print array.\n";
-    cout << "8. Exit Program\n" << endl;
+    cout << "8. Exit Program\n";
+    cout << "------------------------------------------------------------------------\n" << endl; 
 }
 
 //using cases 
@@ -137,78 +159,103 @@ bool menu(double nums[]) {
     //if keeprunning == true at the very end, then the menu() fcn will loop.
     bool keeprunning = true;
 
-    //Will start with no value, but at the end of the function the user will have the choice to keep the existing numbers(true) or get new ones(false) 
-    bool keepnums;
+    // will be used to flag the conditional whether or not a new set of numbers are needed.
+    bool keepnums = false;
 
 //-------WILL HAVE TO CREATE GIANT DO LOOP FOR THE BELOW 
-
-
-    //check whether or not the user has prompted whether they want to use a new set of numbers.
-    while (keepnums != true)  {
-        promptnums(nums);
-        keepnums = true;
-    }
-
-    printmenu();
-
-    /*getselection(min, max) allows for the same function to fetch selections while setting a requirement for the input to 
-    be within the min and max. the largest and smallest values for the cases below are 1, 9 */
-    selection = getselection(1,9);
-    switch(selection) {
-        case 1:
-            sum(nums);
-            break;
-        case 2:
-            product(nums);
-            break;
-        case 3:
-            avg(nums);
-            break;
-        case 4:
-            smallestvalue(nums);
-            break;
-        case 5:
-            largestvalue(nums);
-            break;
-        case 6:
-            // definefloor(nums);
-            break;
-        case 7:
-            printarray(nums, 5);
-            break;
-        case 8:
-            // cout << "totally exiting program";
-            keeprunning = false;
-            break;
-        default:
-            cout << "DEBUG: Invalid selection";
-            break;
-    }
-
-    promptagain();
-    getselection(1, 3);
-    // selection = getselection(1, 3);
-
-    switch (selection) {
-        case 1:
-            menu(nums);
+    do {
+        //check whether or not the user has prompted whether they want to use a new set of numbers.
+        if (keepnums == false)  {
+            // cout << "\nkeeprunning: " << keeprunning << "  keepnums: " << keepnums << endl;
+            promptnums(nums);
             keepnums = true;
-            break;
-        case 2:
-            keepnums = false;
-            menu(nums);
-            break;
-        case 3:
-            keeprunning = false;
-            break;
+            // cout << "\nkeeprunning: " << keeprunning << "  keepnums: " << keepnums << endl;
+        }
+ 
+        if (keepnums == true) {
+            // cout << "\nkeep running != true and keepnums == false.... KEEPING NUMS  -- keeprunning == " << keeprunning << "  and keepnums == " << keepnums;
+            printmenu();
+            cin.clear();
+            
+            /*getselection(min, max) allows for the same function to fetch selections while setting a requirement for the input to 
+            be within the min and max. the largest and smallest values for the cases below are 1, 9 */
+            selection = getselection(1,9);
+            switch(selection) {
+                case 1:
+                    double result;
+                    result = sum(nums);
+                    printf("\n%.2f + %.2f + %.2f + %.2f + %.2f = %.2f\n", nums[0], nums[1], nums[2], nums[3], nums[4], result);
+                    cout << "The sum of all 5 numbers is: " << result << " And num[5] = " << nums[5] << endl;
+                    break;
+                case 2:
+                    product(nums);
+                    break;
+                case 3:
+                    avg(nums);
+                    break;
+                case 4:
+                    smallestvalue(nums);
+                    break;
+                case 5:
+                    largestvalue(nums);
+                    break;
+                case 6:
+                    definefloor(nums);
+                    break;
+                case 7:
+                    printarray(nums, 10);
+                    break;
+                case 8:
+                    cout << "Now exiting program..";
+                    keeprunning = false;
+                    break;
+                }
+  
+            }
+
+        if (keeprunning == true) {
+            cout << "------------------------------------------------------------------------";  
+            cin.clear();
+            cin.ignore(1000, '\n');
+
+
+            promptagain();
+            cin.clear();
+            selection = getselection(1, 3);
+            // cout << "\nselection: " << selection << endl;
+            // selection = getselection(1, 3);
+
+            switch (selection) {
+                case 1:
+                    keepnums = true;
+                    keeprunning = true;
+                    break;
+                case 2:
+                    keepnums = false;
+                    keeprunning = true;
+                    break;
+                case 3:
+                    keeprunning = false;
+                    keepnums = false;
+                    // cout << "keeprunning: " << keeprunning << "  keepnums: " << keepnums << endl;
+                    break;
+                }
+        }
     }
+    while (keeprunning == 1);
     
+    // while (keeprunning == true);
+
+    // cout << "AT END - keeprunning: " << keeprunning << "  keepnums: " << keepnums << endl;
     //if true, the menu() fcn will loop. is defaulted to true unless the user selects an option that will make it false.
     return keeprunning;
+
 }
 
+
+
 void promptagain() {
-    cout << "\nPlease select from the following:\n";
+    cout << "\n\nTo continue please select from the following:\n";
     cout << "1. Keep current numbers and go back to menu a\n";
     cout << "2. Select new numbers and go back to menu\n";
     cout << "3. Exit program.\n\n";
@@ -217,23 +264,25 @@ void promptagain() {
 
 int getselection(int min, int max) {
     int selection;
-    do { cout << "Your selection: ";
-        if (cin >> selection && selection >= min && selection <= max) {
+    do { 
+        cout << "Your selection: ";
+        cin.clear();
+        cin >> selection;
+        if (selection >= min && selection <= max) {
             //if it makes it here then the selection is within 1 - 8, making the condition true and thus valid. continues fcn.
+            cout << "\n------------------------------------------------------------------------\n";
             break;
             }
 
             //else - fails the test
         else {
-                cout << "\nINVALID SELECTION";
-                printmenu();
+                cout << "\nINVALID SELECTION\n";
                 cin.clear();
                 cin.ignore(1000, '\n');
                 //since there is no break; the do {} conditional will loop.
             }
         }
     while (true);
-
     return selection;
 
 }
@@ -252,27 +301,27 @@ void smallestvalue(double nums[]) {
     //Test each number starting at element 0 againt each other number from the 5 prompted values.
     if (nums[0] < nums[1] && nums[0] < nums[2] && nums[0] < nums[3] && nums[0] < nums[4]) {
         // cout << "nums[0] < nums[" << n << "]";
-        printf("nums[0], or %.2f is the smallest number\n", nums[0]);
+        printf("%.2f is the smallest number\n\n", nums[0]);
         result = nums[0];
         }
     else if (nums[1] < nums[0] && nums[1] < nums[2] && nums[1] < nums[3] && nums[1] < nums[4]) {
-        printf("nums[1], or %.2f is the smallest number\n", nums[1]);
+        printf("%.2f is the smallest number\n\n", nums[1]);
         result = nums[1];
         }
     else if (nums[2] < nums[0] && nums[2] < nums[1] && nums[2] < nums[3] && nums[2] < nums[4]) {
-        printf("nums[2], or %.2f is the smallest number\n", nums[2]);
+        printf("%.2f is the smallest number\n\n", nums[2]);
         result = nums[2];
     }
     else if (nums[3] < nums[0] && nums[3] < nums[1] && nums[3] < nums[2] && nums[3] < nums[4]) {
-        printf("nums[3], or %.2f is the smallest number\n", nums[3]);
+        printf("%.2f is the smallest number\n\n", nums[3]);
         result = nums[3];
     }
     else if (nums[4] < nums[0] && nums[4] < nums[1] && nums[4] < nums[2] && nums[4] < nums[3]) {
-        printf("nums[2], or %.2f is the smallest number\n", nums[2]);
+        printf("%.2f is the smallest number\n\n", nums[2]);
         result = nums[4];
     }
     else {
-        cout << "DEBUG: there is not a smallest number.\n";
+        cout << "\nDEBUG: there is not a smallest number.\n\n";
     }
 
     //save the result to it's designated element.
