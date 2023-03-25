@@ -27,6 +27,7 @@ smallestvalue
 largest value
 definefloor(array)
 
+---nums[] = {num1, num2, num3, num4, num5, sum, product, avg, smallestvalue, largestvalue, definefloor}
 
 */
 #include <iostream>
@@ -34,46 +35,68 @@ definefloor(array)
 
 using namespace std;
 
+void printarray(double*, int);
+
 template <class T1>
     T1 promptnums(T1 nums[]) {
+        //prompt user for 5 numbers, then assign each number to the first 5 positions in the array.
         cout << "Please enter 5 different numbers separated by spaces:  ";
-        T1 num1, num2, num3, num4, num5;
-        cin >> num1 >> num2 >> num3 >> num4 >> num5 >> endl;
-        num1 = nums[1];
-        num2 = nums[2];
-        num3 = nums[3];
-        num4 = nums[4]; 
-        num5 = nums[5];
-        cout << num1 << " " << num2 << " " << num3 <<endl;
+        cin >> nums[0] >> nums[1] >> nums[2] >> nums[3] >> nums[4];
+        cout << "\n--Finished storing values.\n" << endl;
+        // printarray(nums, 5);
         return 0;
 
+    }
+
+template <class T1>
+    T1 product(T1 nums[]) {
+        T1 result = (nums[1] * nums[2] * nums[3] * nums[4] * nums[0]);
+        printf("%.2f * %.2f * %.2f * %.2f * %.2f = %.2f\n", nums[0], nums[1], nums[2], nums[3], nums[4], result);
+        cout << "The product of all 5 numbers is : " << result << endl;
+        return result;
     }
 
 
 template <class T1>
     T1 sum(T1 nums[]) {
-
-        return (nums[1] + nums[2] + nums[3] + nums[4] + nums[5]);
+        T1 result = (nums[1] + nums[2] + nums[3] + nums[4] + nums[0]);
+        printf("\n%.2f + %.2f + %.2f + %.2f + %.2f = %.2f\n", nums[0], nums[1], nums[2], nums[3], nums[4], result);
+        cout << "The sum of all 5 numbers is: " << result << "\n" << endl;
+        return result;
     }
 
 
 
 
 
-int main(int argc, char *argv[]) {
-    double *nums[5];
+int main() {
+    //create array that will hold all the values that will be used in the program.
+    double nums[11] = {0, 0, 0, 0 ,0 ,0 ,0 ,0 ,0, 0, 0};
+    //keeprunning will remain true until the user prompts to end the program.
     bool keeprunning;
-    // bool *keeprunptr;
-    // keeprunptr = &keeprunning;
     keeprunning = true;
-    cout << "initializing...\n" << endl;
-    // if (keeprunning == true) {
-    promptnums(nums[]);
-    cout << sum<double>(nums[]) << endl;
-        
-    //  }
 
-     cout << "the end.\n";
+    //debug
+    cout << "\n--initializing...\n" << endl;
+
+    promptnums(nums);
+    sum(nums);
+    product(nums);
+    printarray(nums, 10);
+
+    //debug
+    cout << "\nthe end." <<endl;
     return 0;
 }
 
+
+
+
+
+
+void printarray(double array[], int length) {
+    cout << "\nThe array printed : \n";
+    for (int n=0; n < length; n++){
+        cout << "nums[" << n << "]" << array[n] << endl;
+    }
+}
