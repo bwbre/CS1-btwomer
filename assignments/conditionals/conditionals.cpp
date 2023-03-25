@@ -140,11 +140,14 @@ bool menu(double nums[]) {
     //Will start with no value, but at the end of the function the user will have the choice to keep the existing numbers(true) or get new ones(false) 
     bool keepnums;
 
+//-------WILL HAVE TO CREATE GIANT DO LOOP FOR THE BELOW 
+
+
     //check whether or not the user has prompted whether they want to use a new set of numbers.
-    do  {
+    while (keepnums != true)  {
         promptnums(nums);
+        keepnums = true;
     }
-    while (keepnums == false);
 
     printmenu();
 
@@ -188,26 +191,27 @@ bool menu(double nums[]) {
 
     switch (selection) {
         case 1:
-            keepnum = true;
-            menu();
+            menu(nums);
+            keepnums = true;
             break;
         case 2:
-            keepnum = false;
-            menu();
+            keepnums = false;
+            menu(nums);
             break;
         case 3:
             keeprunning = false;
             break;
     }
     
+    //if true, the menu() fcn will loop. is defaulted to true unless the user selects an option that will make it false.
     return keeprunning;
 }
 
-void promptagain();{
+void promptagain() {
     cout << "\nPlease select from the following:\n";
-    cout << "1. Go back to menu\n";
+    cout << "1. Keep current numbers and go back to menu a\n";
     cout << "2. Select new numbers and go back to menu\n";
-    cout << "3. Exit program.\n\n"
+    cout << "3. Exit program.\n\n";
 }
 
 
