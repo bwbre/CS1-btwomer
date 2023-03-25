@@ -39,15 +39,17 @@ void printarray(double*, int);
 void smallestvalue(double*);
 void largestvalue(double*);
 bool menu(double*);
+int getselection(int, int);
 void printmenu();
+void promptagain();
 
 //will use first 5 elements of nums[]
 template <class T1>
     T1 promptnums(T1 nums[]) {
         //prompt user for 5 numbers, then assign each number to the first 5 positions in the array.
-        cout << "Please enter 5 different numbers separated by spaces:  ";
+        cout << "\nPlease enter 5 different numbers separated by spaces:  ";
         cin >> nums[0] >> nums[1] >> nums[2] >> nums[3] >> nums[4];
-        cout << "\n--Finished storing values." << endl;
+        cout << "\n--Finished storing values--\n" << endl;
         // printarray(nums, 5);
         return 0;
     }
@@ -95,11 +97,14 @@ int main() {
     bool keeprunning;
     keeprunning = true;
 
-    //debug
     cout << "\n--initializing...\n" << endl;
 
-    promptnums(nums);
-    menu(nums);
+    do {
+        menu(nums);
+        keeprunning = menu(nums);
+    }
+    while (keeprunning == true);
+
     // sum(nums);
     // product(nums);
     // avg(nums);
@@ -108,48 +113,44 @@ int main() {
     // printarray(nums, 10);
 
     //debug
-    cout << "\nthe end." <<endl;
+    cout << "\nGoodbye." <<endl;
     return 0;
 }
 
 
 void printmenu() {
-    cout << "\n\n\n\n\n\nPlease select one of the following options:\n1. Calculate the sum of the 5 numbers.\n";
+    cout << "\n\n\n\n\nPlease select one of the following options:\n\n";
+    cout << "1. Calculate the sum of the 5 numbers.\n";
     cout << "2. Calculate the product of the 5 numbers.\n";
     cout << "3. Calculate the average of the 5 numbers.\n";
     cout << "4. Find the smallest value among the 5 numbers.\n";
     cout << "5. Find the largest value among the 5 numbers.\n";
     cout << "6. Find whether the floor of sum of the 5 numbers is even, odd, or 0.\n";
     cout << "7. Print array.\n";
-    cout << "8. Exit Program" << endl;
+    cout << "8. Exit Program\n" << endl;
 }
 
 //using cases 
 bool menu(double nums[]) {
-    cout << "\n beginning of menu fcn";
     int selection;
-    bool keeprunning;
+
+    //if keeprunning == true at the very end, then the menu() fcn will loop.
+    bool keeprunning = true;
+
+    //Will start with no value, but at the end of the function the user will have the choice to keep the existing numbers(true) or get new ones(false) 
+    bool keepnums;
+
+    //check whether or not the user has prompted whether they want to use a new set of numbers.
+    do  {
+        promptnums(nums);
+    }
+    while (keepnums == false);
+
     printmenu();
 
-    //verify the user input is a valid choice from the menu. if it is false (invalid) it will loop until a valid input is given. 
-    do { 
-        if (cin >> selection && selection>=1 && selection<=8) {
-            //if it makes it here then the selection is within 1 - 8, making the condition true and thus valid. continues fcn.
-            break;
-            }
-
-            //else - fails the test
-        else {
-                cout << "invalid selection.";
-                printmenu();
-                cin.clear();
-                cin.ignore(1000, "\n");
-                //since there is no break; the do {} conditional will loop.
-            }
-        }
-  
-    //after the user input verify loop is resolved, will input the user input into the switch.
-    while (true);
+    /*getselection(min, max) allows for the same function to fetch selections while setting a requirement for the input to 
+    be within the min and max. the largest and smallest values for the cases below are 1, 9 */
+    selection = getselection(1,9);
     switch(selection) {
         case 1:
             sum(nums);
@@ -167,24 +168,71 @@ bool menu(double nums[]) {
             largestvalue(nums);
             break;
         case 6:
-            definefloor(nums);
+            // definefloor(nums);
             break;
         case 7:
             printarray(nums, 5);
             break;
         case 8:
-            cout << "totally exiting program";
+            // cout << "totally exiting program";
+            keeprunning = false;
             break;
         default:
-            cout << "Invalid selection";
+            cout << "DEBUG: Invalid selection";
             break;
     }
 
+    promptagain();
+    getselection(1, 3);
+    // selection = getselection(1, 3);
 
-    cout << "\nend of menu\n";
-    return true;
+    switch (selection) {
+        case 1:
+            keepnum = true;
+            menu();
+            break;
+        case 2:
+            keepnum = false;
+            menu();
+            break;
+        case 3:
+            keeprunning = false;
+            break;
+    }
+    
+    return keeprunning;
 }
 
+void promptagain();{
+    cout << "\nPlease select from the following:\n";
+    cout << "1. Go back to menu\n";
+    cout << "2. Select new numbers and go back to menu\n";
+    cout << "3. Exit program.\n\n"
+}
+
+
+int getselection(int min, int max) {
+    int selection;
+    do { cout << "Your selection: ";
+        if (cin >> selection && selection >= min && selection <= max) {
+            //if it makes it here then the selection is within 1 - 8, making the condition true and thus valid. continues fcn.
+            break;
+            }
+
+            //else - fails the test
+        else {
+                cout << "\nINVALID SELECTION";
+                printmenu();
+                cin.clear();
+                cin.ignore(1000, '\n');
+                //since there is no break; the do {} conditional will loop.
+            }
+        }
+    while (true);
+
+    return selection;
+
+}
 
 
 void printarray(double array[], int length) {
@@ -200,23 +248,23 @@ void smallestvalue(double nums[]) {
     //Test each number starting at element 0 againt each other number from the 5 prompted values.
     if (nums[0] < nums[1] && nums[0] < nums[2] && nums[0] < nums[3] && nums[0] < nums[4]) {
         // cout << "nums[0] < nums[" << n << "]";
-        printf("nums[0], or %.2f is the smallest number", nums[0]);
+        printf("nums[0], or %.2f is the smallest number\n", nums[0]);
         result = nums[0];
         }
     else if (nums[1] < nums[0] && nums[1] < nums[2] && nums[1] < nums[3] && nums[1] < nums[4]) {
-        printf("nums[1], or %.2f is the smallest number", nums[1]);
+        printf("nums[1], or %.2f is the smallest number\n", nums[1]);
         result = nums[1];
         }
     else if (nums[2] < nums[0] && nums[2] < nums[1] && nums[2] < nums[3] && nums[2] < nums[4]) {
-        printf("nums[2], or %.2f is the smallest number", nums[2]);
+        printf("nums[2], or %.2f is the smallest number\n", nums[2]);
         result = nums[2];
     }
     else if (nums[3] < nums[0] && nums[3] < nums[1] && nums[3] < nums[2] && nums[3] < nums[4]) {
-        printf("nums[3], or %.2f is the smallest number", nums[3]);
+        printf("nums[3], or %.2f is the smallest number\n", nums[3]);
         result = nums[3];
     }
     else if (nums[4] < nums[0] && nums[4] < nums[1] && nums[4] < nums[2] && nums[4] < nums[3]) {
-        printf("nums[2], or %.2f is the smallest number", nums[2]);
+        printf("nums[2], or %.2f is the smallest number\n", nums[2]);
         result = nums[4];
     }
     else {
@@ -233,23 +281,23 @@ void largestvalue(double nums[]) {
     //Test each number starting at element 0 againt each other number from the 5 prompted values.
     if (nums[0] > nums[1] && nums[0] > nums[2] && nums[0] > nums[3] && nums[0] > nums[4]) {
         // cout << "nums[0] < nums[" << n << "]";
-        printf("nums[0], or %.2f is the largest number", nums[0]);
+        printf("nums[0], or %.2f is the largest number\n", nums[0]);
         result = nums[0];
         }
     else if (nums[1] > nums[0] && nums[1] > nums[2] && nums[1] > nums[3] && nums[1] > nums[4]) {
-        printf("nums[1], or %.2f is the largest number", nums[1]);
+        printf("nums[1], or %.2f is the largest number\n", nums[1]);
         result = nums[1];
         }
     else if (nums[2] > nums[0] && nums[2] > nums[1] && nums[2] > nums[3] && nums[2] > nums[4]) {
-        printf("nums[2], or %.2f is the largest number", nums[2]);
+        printf("nums[2], or %.2f is the largest number\n", nums[2]);
         result = nums[2];
     }
     else if (nums[3] > nums[0] && nums[3] > nums[1] && nums[3] > nums[2] && nums[3] > nums[4]) {
-        printf("nums[3], or %.2f is the largest number", nums[3]);
+        printf("nums[3], or %.2f is the largest number\n", nums[3]);
         result = nums[3];
     }
     else if (nums[4] > nums[0] && nums[4] > nums[1] && nums[4] > nums[2] && nums[4] > nums[3]) {
-        printf("nums[4], or %.2f is the largest number", nums[4]);
+        printf("nums[4], or %.2f is the largest number\n", nums[4]);
         result = nums[4];
     }
     else {
@@ -257,5 +305,5 @@ void largestvalue(double nums[]) {
     }
 
     //save the result to it's designated element.
-    nums[8] = result;
+    nums[9] = result;
 }
