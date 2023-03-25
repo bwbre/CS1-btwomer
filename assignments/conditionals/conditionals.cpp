@@ -17,15 +17,15 @@ Program Steps:
 9. Define a test function that will verify the accuracy of the previously defined functions. (Call only when test argument is passed to main).
 10. Loop as many times as the user wants.
 
-Notes: at least one must be able to accept multiple data types
-
-array for 5 nums
-5] sum
-6] product
-7] average (using sum)
-8] smallestvalue
-9] largestvalue
-10] definefloor(array)
+Notes: 
+array nums[] will store all the values that will be worked with.
+nums[0 -> 4] are the user selected numbers
+nums[5] sum
+nums[6] product
+nums[7] average
+nums[8] smallestvalue
+nums[9] largestvalue
+nums[10] definefloor
 
 ---nums[] = {num1, num2, num3, num4, num5, sum, product, avg, smallestvalue, largestvalue, definefloor}
 
@@ -104,35 +104,30 @@ template <class T1>
 
 
 
-int main() {
+int main(int argc, char* argv[]) {
     //create array that will hold all the values that will be used in the program.
     double nums[11] = {0, 0, 0, 0 ,0 ,0 ,0 ,0 ,0, 0, 0};
+
     //keeprunning will remain true until the user prompts to end the program.
     bool keeprunning;
     keeprunning = true;
 
-    // cout << "\n--initializing...\n" << endl;
+    //test functions when test is used as an argument.
+    if (argv[1] == "test") {
+        //testtest
+        // **test functions**
+    }
 
+    //this essentially runs the whole program.
     do {
         if (keeprunning == true) {
-            // cout << "keep running: " << keeprunning;
             keeprunning = menu(nums);
-            // cout << "keep running: " << keeprunning;
         }
         else {
-            // cout << "\n KEEP RUNNING IS NOT TRUE INSIDE IN MAIN LOOP\n\n";
             return 0;
         }
     }
     while (keeprunning == true);
-
-    // sum(nums);
-    // product(nums);
-    // avg(nums);
-    // smallestvalue(nums);
-    // largestvalue(nums);
-    // printarray(nums, 10);
-
 
     cout << "\nGoodbye." <<endl;
     return 0;
@@ -152,7 +147,7 @@ void printmenu() {
     cout << "------------------------------------------------------------------------\n" << endl; 
 }
 
-//using cases 
+//
 bool menu(double nums[]) {
     int selection;
 
@@ -162,18 +157,19 @@ bool menu(double nums[]) {
     // will be used to flag the conditional whether or not a new set of numbers are needed.
     bool keepnums = false;
 
-//-------WILL HAVE TO CREATE GIANT DO LOOP FOR THE BELOW 
+    /* will loop endlessly while keeprunning == true
+    on the first loop it keepnums is false so it will always ask the user for 5 numbers. 
+    subsequent loops will check whether or not the player decided to pick new numbers.
+    */
     do {
-        //check whether or not the user has prompted whether they want to use a new set of numbers.
+
         if (keepnums == false)  {
-            // cout << "\nkeeprunning: " << keeprunning << "  keepnums: " << keepnums << endl;
             promptnums(nums);
             keepnums = true;
-            // cout << "\nkeeprunning: " << keeprunning << "  keepnums: " << keepnums << endl;
         }
  
+        //if they prompted they want to keep their numbers this runs.
         if (keepnums == true) {
-            // cout << "\nkeep running != true and keepnums == false.... KEEPING NUMS  -- keeprunning == " << keeprunning << "  and keepnums == " << keepnums;
             printmenu();
             cin.clear();
             
@@ -213,6 +209,7 @@ bool menu(double nums[]) {
   
             }
 
+        //just to make sure nothing else runs after the user prompts to exit.
         if (keeprunning == true) {
             cout << "------------------------------------------------------------------------";  
             cin.clear();
@@ -243,17 +240,14 @@ bool menu(double nums[]) {
         }
     }
     while (keeprunning == 1);
-    
-    // while (keeprunning == true);
 
-    // cout << "AT END - keeprunning: " << keeprunning << "  keepnums: " << keepnums << endl;
     //if true, the menu() fcn will loop. is defaulted to true unless the user selects an option that will make it false.
     return keeprunning;
 
 }
 
 
-
+//prints out the smaller menu asking the user to exit or keep going.
 void promptagain() {
     cout << "\n\nTo continue please select from the following:\n";
     cout << "1. Keep current numbers and go back to menu a\n";
@@ -262,6 +256,7 @@ void promptagain() {
 }
 
 
+//validates the user's input, limited to the available options.
 int getselection(int min, int max) {
     int selection;
     do { 
@@ -274,7 +269,7 @@ int getselection(int min, int max) {
             break;
             }
 
-            //else - fails the test
+        //else - fails the test and warns user.
         else {
                 cout << "\nINVALID SELECTION\n";
                 cin.clear();
