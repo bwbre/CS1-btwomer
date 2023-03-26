@@ -42,6 +42,7 @@ bool menu(double*);
 int getselection(int, int);
 void printmenu();
 void promptagain();
+void test(double*);
 
 //will use first 5 elements of nums[]
 template <class T1>
@@ -84,6 +85,9 @@ template <class T1>
 
         return 0;
     }
+
+
+//I dont want to use strings so im arbritarily assigning 0 = zero, 1 = even, 2 = odd.
 template <class T1>
     T1 definefloor(T1 nums[]) {
         T1 sumt = sum(nums);
@@ -91,12 +95,15 @@ template <class T1>
             int remainder = (int(sumt) % 2);
         if (remainder == 0 && sumt == 0) {
             cout << "\nThe sum floor is zero\n";
+            nums[10] = 0;
         }
         else if (remainder == 0 && sumt != 0){
             cout << "\nThe sum floor is even\n";
+            nums[10] = 1;
         } 
         else {
             cout << "\nThe sum floor is odd\n";
+            nums[10] = 2;
         }
     return 0;
     }
@@ -106,6 +113,9 @@ template <class T1>
 
 int main(int argc, char* argv[]) {
     //create array that will hold all the values that will be used in the program.
+    /*
+    
+    */
     double nums[11] = {0, 0, 0, 0 ,0 ,0 ,0 ,0 ,0, 0, 0};
 
     //keeprunning will remain true until the user prompts to end the program.
@@ -354,4 +364,76 @@ void largestvalue(double nums[]) {
 
     //save the result to it's designated element.
     nums[9] = result;
+}
+
+void test(double nums[]) {
+    //create test array and result variable that will be tested
+    double testa1[5] = {1, 4, 5, 6, 8};
+    double testa2[5] = {10, 6, 15, 20, 12};
+    double testa3[5] = {0, 2, 7, 5.5, 12};
+    double testa4[5] = {0,0,0,0,0};
+    double result;
+
+    result = sum(testa1);
+    assert(result == 24);
+    result = sum(testa2);
+    assert(result == 63);
+    result = sum(testa3);
+    assert(result == 26.5);
+    result = sum(testa4);
+    assert(result == 0);
+
+    result = smallestvalue(testa1);
+    assert(result == 1);
+    result == smallestvalue(testa2);
+    assert(result == 6);
+    result == smallestvalue(testa3);
+    assert(result == 0);
+    result = smallestvalue(testa4);
+    assert(result == 0);
+
+    result = largestvalue(testa1);
+    assert(result == 1);
+    result == largestvalue(testa2);
+    assert(result == 6);
+    result == largestvalue(testa3);
+    assert(result == 0);
+    result = largestvalue(testa4);
+    assert(result == 0);
+
+    result = product(testa1);
+    assert(result == 960);
+    result = product(testa2);
+    assert(result == 216000);
+    result = product(testa3);
+    assert(result == 0);
+    result = product(testa4);
+    assert(result == 0);
+
+    result = avg(testa1);
+    assert(result == 4.8 );
+    result = avg(testa2);
+    assert(result == 12.6 );
+    result = avg(testa3);
+    assert(result == 5.3 );
+    result = avg(testa4);
+    assert(result == 0);
+
+    //0 is zero, 1 is even, 2 is odd
+    result = definefloor(testa1);
+    assert(result == 1 );
+    result = definefloor(testa2);
+    assert(result == 2 );
+    result = definefloor(testa3);
+    assert(result == 1 );
+    result = definefloor(testa4);
+    assert(result == 0);
+
+
+
+
+
+
+
+
 }
