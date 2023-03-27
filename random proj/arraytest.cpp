@@ -10,6 +10,9 @@ int main() {
         nums[n] = n+1;
         cout << "nums[" << n << "]: " << nums[n] << endl;
     }
+
+    nums[5] = "test";
+    cout << string(nums[5])
     cout << nums[12];
 
     cout << "the end.";

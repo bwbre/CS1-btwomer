@@ -18,14 +18,7 @@ Program Steps:
 10. Loop as many times as the user wants.
 
 Notes: 
-array nums[] will store all the values that will be worked with.
-nums[0 -> 4] are the user selected numbers
-nums[5] sum
-nums[6] product
-nums[7] average
-nums[8] smallestvalue
-nums[9] largestvalue
-nums[10] definefloor
+
 
 ---nums[] = {num1, num2, num3, num4, num5, sum, product, avg, smallestvalue, largestvalue, definefloor}
 
@@ -43,6 +36,7 @@ bool menu(double*, bool);
 int getselection(int, int);
 void printmenu();
 void promptagain();
+void promptname();
 
 //will use first 5 elements of nums[]
 template <class T1>
@@ -58,11 +52,12 @@ template <class T1>
 template <class T1>
     T1 sum(T1 nums[], bool dotest) {
         T1 result = (nums[1] + nums[2] + nums[3] + nums[4] + nums[0]);
-
-        // if (dotest == false) {
+        // cout << "dotest: " << dotest << endl;
+        if (dotest == false) {
             printf("\n%.2f + %.2f + %.2f + %.2f + %.2f = %.2f\n", nums[0], nums[1], nums[2], nums[3], nums[4], result);
             cout << "The sum of all 5 numbers is: " << result << " And num[5] = " << nums[5] << endl;
-        // }   
+        } 
+
         //store the result in element 6 of nums[]
         nums[5] = result;
 
@@ -71,26 +66,31 @@ template <class T1>
 
 //will calculate the product and will save the result in the 7th element -- nums[6]
 template <class T1>
-    T1 product(T1 nums[]) {
+    T1 product(T1 nums[], bool dotest) {
         T1 result = (nums[0] * nums[1] * nums[2] * nums[3] * nums[4]);
-        // if (dotest == false) {
 
+        if (dotest == false) {
         printf("\n%.2f * %.2f * %.2f * %.2f * %.2f = %.2f\n", nums[0], nums[1], nums[2], nums[3], nums[4], result);
         cout << "The product of all 5 numbers is : " << result << " And num[6] = " << nums[6] << endl;
+        }
+
         //store the result in element 7 of nums[]
-        // }
         nums[6] = result; 
-        cout << "inside product num[6] = " << nums[6] << endl;
+
         return result;
     }
 
 // will calculate the average and will save the result in the 8th element -- nums[7]
 template <class T1>
-    T1 avg(T1 nums[]) {
-        T1 result = ((sum(nums, false)) / 5);
-        // printf("\n%.2f + %.2f + %.2f + %.2f + %.2f = %.2f\nT", nums[0], nums[1], nums[2], nums[3], nums[4], result);
+    T1 avg(T1 nums[], bool dotest) {
+        T1 result = ((sum(nums, dotest)) / 5);
+
+        if (dotest == false) {
+            cout << "\nThe average of all 5 numbers is : " << result <<  endl;
+        }
+
         nums[7] = result; 
-        cout << "\nThe average of all 5 numbers is : " << result << " And num[6] = " << nums[7] << endl;
+
 
         return result;
     }
@@ -98,21 +98,29 @@ template <class T1>
 
 //I dont want to use strings so im arbritarily assigning 0 = zero, 1 = even, 2 = odd.
 template <class T1>
-    T1 definefloor(T1 nums[]) {
-        T1 sumt = sum(nums , false);
+    T1 definefloor(T1 nums[], bool dotest) {
+
+        T1 sumt = sum(nums, dotest);
         T1 result;
-            // cout << "Sum: " << sumt << endl;
-            int remainder = (int(sumt) % 2);
+
+
+        int remainder = (int(sumt) % 2);
         if (remainder == 0 && sumt == 0) {
+            if (dotest == false) {
             cout << "\nThe sum floor is zero\n";
+            }
             nums[10] = 0;
         }
         else if (remainder == 0 && sumt != 0){
+            if (dotest == false) {
             cout << "\nThe sum floor is even\n";
+            }
             nums[10] = 1;
         } 
         else {
+            if (dotest == false) {
             cout << "\nThe sum floor is odd\n";
+            }
             nums[10] = 2;
         }
 
@@ -122,158 +130,95 @@ template <class T1>
 
 template <class T>
     T test(T nums[],bool dotest) {
-    //create test array and result variable that will be tested
-    // double nums[5] = {1, 4, 5, 6, 8};
-    // double nums[5] = {10, 6, 15, 20, 12};
-    // double nums[5] = {0, 2, 7, 5.5, 12};
-    // double nums[5] = {0,0,0,0,0};
+    //Will test all the functions using a single array, but overwriting the value with new ones for each test.
+
+    //variable to hold the results from the functions.
     T resultt;
 
 
     // double nums[5] = {1, 4, 5, 6, 8};
     nums[0] = 1;
-    // cout << "nums[" << 0 << "]: " << nums[0] << endl;
     nums[1] = 4;
-    // cout << "nums[" << 1 << "]: " << nums[1] << endl;
     nums[2] = 5;
-    // cout << "nums[" << 2 << "]: " << nums[2] << endl;
     nums[3] = 6;
-    // cout << "nums[" << 4 << "]: " << nums[3] << endl;
     nums[4] = 8; 
-    // cout << "nums[" << 5 << "]: " << nums[4] << endl;
-    cout << endl;
-    int n;
 
-
-
-    // for (int n = 0; n <= 4; n++){
-    //     // nums[n] = n+1;
-    //     cout << "yoyoyoyoy";
-    //     cout << "nums[" << n << "]: " << nums[n] << endl;
-    // }
-
-    resultt = sum(nums, false);
+    resultt = sum(nums, true);
     assert(resultt == 24);
-
-    // for (int n = 0; n <= 4; n++){
-    //     // nums[n] = n+1;
-    //     cout << "sum";
-    //     cout << "nums[" << n << "]: " << nums[n] << endl;
-    // }
-
-    resultt = smallestvalue(nums, false);
+    resultt = smallestvalue(nums, true);
     assert(resultt == 1);
-    cout << nums[0] << endl;
-    // for (int n = 0; n <= 4; n++){
-    //     // nums[n] = n+1;
-    //     cout << "smallest";
-    //     cout << "nums[" << n << "]: " << nums[n] << endl;
-    // }
-
-    resultt = largestvalue(nums, false);
+    // cout << nums[0] << endl;
+    resultt = largestvalue(nums, true);
     assert(resultt == 8);
-
-    //     for (int n = 0; n <= 4; n++){
-    //     // nums[n] = n+1;
-    //     cout << "large";
-    //     cout << "nums[" << n << "]: " << nums[n] << endl;
-    // }
-    resultt = product(nums);
+    resultt = product(nums, true);
     assert(resultt == 960);
-
-    //      for (int n = 0; n <= 4; n++){
-    //     // nums[n] = n+1;
-    //     cout << "product";
-    //     cout << "nums[" << n << "]: " << nums[n] << endl;
-    // }
-    resultt = avg(nums);
+    resultt = avg(nums, true);
     assert(resultt == 4.8 );
-
-    //     for (int n = 0; n <= 4; n++){
-    //     // nums[n] = n+1;
-    //     cout << "yoyoyoyoy";
-    //     cout << "nums[" << n << "]: " << nums[n] << endl;
-    // }
-    resultt = definefloor(nums);
+    resultt = definefloor(nums, true);
     assert(resultt == 1 );
 
-
+    // double nums[5] = {10, 6, 15, 20, 12};
     nums[0] = 10;
     nums[1] = 6;
     nums[2] = 15;
     nums[3] = 20;
     nums[4] = 12;
-    cout << endl;
 
-
-    // for (n = 0; n <= 11; ++n){
-    //     // nums[n] = n+1;
-    //     cout << "nums[" << n << "]: " << nums[n] << endl;
-    // }
-
-    resultt = sum(nums, false);
+    resultt = sum(nums, true);
     assert(resultt == 63);
-    resultt = smallestvalue(nums, false);
+    resultt = smallestvalue(nums, true);
     assert(resultt == 6);
-    resultt = largestvalue(nums, false);
+    resultt = largestvalue(nums, true);
     assert(resultt == 20);
-    resultt = product(nums);
+    resultt = product(nums, true);
     assert(resultt == 216000);
-    resultt = avg(nums);
+    resultt = avg(nums, true);
     assert(resultt == 12.6 );
-    resultt = definefloor(nums);
+    resultt = definefloor(nums, true);
     assert(resultt == 2 );
 
+    // double nums[5] = {0, 2, 7, 5.5, 12};
     nums[0] = 0;
     nums[1] = 2;
     nums[2] = 7;
     nums[3] = 5.5;
     nums[4] = 12; 
-    cout<< endl;
 
-    // for (n = 0; n <= 11; ++n){
-    //     // nums[n] = n+1;
-    //     cout << "nums[" << n << "]: " << nums[n] << endl;
-    // }
-    resultt = sum(nums, false);
+    resultt = sum(nums, true);
     assert(resultt == 26.5);
-    resultt = resultt = smallestvalue(nums, false);
+    resultt = resultt = smallestvalue(nums, true);
     assert(resultt == 0);
-    resultt = largestvalue(nums, false);
+    resultt = largestvalue(nums, true);
     assert(resultt == 12);
-    resultt = product(nums);
+    resultt = product(nums, true);
     assert(resultt == 0);
-    resultt = avg(nums);
+    resultt = avg(nums, true);
     assert(resultt == 5.3 );
-    resultt = definefloor(nums);
+    resultt = definefloor(nums, true);
     assert(resultt == 1 );
 
+    // double nums[5] = {0,0,0,0,0};
     nums[0] = 0;
     nums[1] = 0;
     nums[2] = 0;
     nums[3] = 0;
     nums[4] = 0; 
-    cout << endl;
 
-    // for (n = 0; n <= 11; ++n){
-    //     // nums[n] = n+1;
-    //     cout << "nums[" << n << "]: " << nums[n] << endl;
-    // }
 
-    resultt = sum(nums, false);
+    resultt = sum(nums, true);
     assert(resultt == 0);
-    resultt = smallestvalue(nums, false);
+    resultt = smallestvalue(nums, true);
     assert(resultt == 0);
-    resultt = largestvalue(nums, false);
+    resultt = largestvalue(nums, true);
     assert(resultt == 0);
-    resultt = product(nums);
+    resultt = product(nums, true);
     assert(resultt == 0);
-    resultt = avg(nums);
+    resultt = avg(nums, true);
     assert(resultt == 0);
-    resultt = definefloor(nums);
+    resultt = definefloor(nums, true);
     assert(resultt == 0);
 
-    // test = false;
+
     return 0;
 }
 
@@ -282,28 +227,44 @@ template <class T>
 
 int main(int argc, char* argv[]) {
     //create array that will hold all the values that will be used in the program.
-    /*
-    
-    */
+    /* array nums[] will store all the values that will be worked with.
+    nums[0 -> 4] are the user selected numbers
+    nums[5] sum
+    nums[6] product
+    nums[7] average
+    nums[8] smallestvalue
+    nums[9] largestvalue
+    nums[10] definefloor */
     double nums[11] = {0, 0, 0, 0 ,0 ,0 ,0 ,0 ,0, 0, 0};
-
-    bool dotest = false;
+    bool dotest;
+    //no numbers have been imputted at the beginning of program. declare keepnums as false so it knows it needs new numbers.
+    bool keepnums = false;
 
     //keeprunning will remain true until the user prompts to end the program.
-    bool keeprunning;
-    keeprunning = true;
+    bool keeprunning = true;
+
+    //i already created a bool for dotest and would have to do a ton of re-writing to replace it with the method i learned today in class.
+    if (argc == 2 && string(argv[1]) == "test") {
+        dotest = true;
+    }
+    else{
+        dotest = false;
+    }
+
 
     //test functions when test is used as an argument.
     if (dotest == true) {
         cout << "\ntest time\n";
         test<double>(nums, true);
-        cout << "test passed" <<endl;
+        cout << "\ntest passed.. Program wil now end." <<endl;
+        dotest = false;
+        keeprunning = false;
     }
 
     //this essentially runs the whole program.
     do {
         if (keeprunning == true) {
-            keeprunning = menu(nums, false);
+            keeprunning = menu(nums, dotest);
         }
         else {
             return 0;
@@ -332,12 +293,14 @@ void printmenu() {
 //
 bool menu(double nums[], bool dotest) {
     int selection;
-    // dotest = false;
+
+    //the previously used keeprunning isnt passed into this function, because it will only be called IF keeprunning was == true in main-- always will be true at the start of this function.
     //if keeprunning == true at the very end, then the menu() fcn will loop.
     bool keeprunning = true;
 
     // will be used to flag the conditional whether or not a new set of numbers are needed.
     bool keepnums = false;
+    promptname();
 
     /* will loop endlessly while keeprunning == true
     on the first loop it keepnums is false so it will always ask the user for 5 numbers. 
@@ -357,17 +320,16 @@ bool menu(double nums[], bool dotest) {
             
             /*getselection(min, max) allows for the same function to fetch selections while setting a requirement for the input to 
             be within the min and max. the largest and smallest values for the cases below are 1, 9 */
-            selection = getselection(1,9);
+            selection = getselection(1,8);
             switch(selection) {
                 case 1:
-                    // cout << "do test: " << dotest<< endl;
                     sum(nums, dotest);
                     break;
                 case 2:
-                    product(nums);
+                    product(nums, dotest);
                     break;
                 case 3:
-                    avg(nums);
+                    avg(nums, dotest);
                     break;
                 case 4:
                     smallestvalue(nums, dotest);
@@ -376,12 +338,9 @@ bool menu(double nums[], bool dotest) {
                     largestvalue(nums, dotest);
                     break;
                 case 6:
-                    definefloor(nums);
+                    definefloor(nums, dotest);
                     break;
                 case 7:
-                    printarray(nums, 10);
-                    break;
-                case 8:
                     cout << "Now exiting program..";
                     keeprunning = false;
                     break;
@@ -444,7 +403,7 @@ int getselection(int min, int max) {
         cin.clear();
         cin >> selection;
         if (selection >= min && selection <= max) {
-            //if it makes it here then the selection is within 1 - 8, making the condition true and thus valid. continues fcn.
+            //if it makes it here then the selection is within 1 - 7, making the condition true and thus valid. continues fcn.
             cout << "\n------------------------------------------------------------------------\n";
             break;
             }
@@ -458,26 +417,22 @@ int getselection(int min, int max) {
             }
         }
     while (true);
+    // cout << "debug: selection : " << selection << endl;
     return selection;
 
 }
 
 
-void printarray(double array[], int length) {
-    cout << "\n\nnums[] : \n";
-    for (int n=0; n < length; n++){
-        cout << "nums[" << n << "]" << array[n] << endl;
-    }
-}
+// void printarray(double array[], int length) {
+//     cout << "\n\nnums[] : \n";
+//     for (int n=0; n < length; n++){
+//         cout << "nums[" << n << "]" << array[n] << endl;
+//     }
+// }
 
 double smallestvalue(double nums[], bool dotest) {
     double result;
-    cout << "\n";
-            cout << "\nnums[0] " << nums[0] << "]\n";
-            cout << "nums[1] "  << nums[1] << "]\n";
-            cout << "nums[2] " << nums[2] << "]\n";
-            cout << "nums[3] " << nums[3] << "]\n";
-            cout << "nums[4] " << nums[4] << "]\n";
+
     //Test each number starting at element 0 againt each other number from the 5 prompted values.
     if (nums[0] < nums[1] && nums[0] < nums[2] && nums[0] < nums[3] && nums[0] < nums[4]) {
 
@@ -510,19 +465,21 @@ double smallestvalue(double nums[], bool dotest) {
         }
         result = nums[4];
     }
-    else {
-        cout << "\nDEBUG: there is not a smallest number.\n\n";
+    else if (nums[4] == nums[0] && nums[4] == nums[1] && nums[4] == nums[2] && nums[4] == nums[3]) {
+        if(dotest == false) {
+            cout << "they are all equal.\n";
+        }
     }
 
     //save the result to it's designated element.
-    cout << result << " dddd---";
     nums[8] = result;
     return result;
 }
 
 double largestvalue(double nums[], bool dotest) {
     double result;
-    cout << "\n";
+
+    // cout << "\n";
     //Test each number starting at element 0 againt each other number from the 5 prompted values.
     if (nums[0] > nums[1] && nums[0] > nums[2] && nums[0] > nums[3] && nums[0] > nums[4]) {
         // cout << "nums[0] < nums[" << n << "]";
@@ -555,14 +512,23 @@ double largestvalue(double nums[], bool dotest) {
             }
         result = nums[4];
     }
-    else {
-        cout << "DEBUG: there is not a largest number.\n";
+    else if (nums[4] == nums[0] && nums[4] == nums[1] && nums[4] == nums[2] && nums[4] == nums[3]) {
+        if(dotest == false) {
+        cout << "they are all equal.\n";
+        }
+        return 0;
     }
 
     //save the result to it's designated element.
     nums[9] = result;
-    // cout << "result = " << result<<endl;
     return result;
 }
 
+void promptname() {
+    string name;
+    cout << "Hello, Please enter your name : ";
+    getline(cin, name);
+    cin.clear();
 
+    cout << "\nHello " << name << "." << endl;
+}
