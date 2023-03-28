@@ -18,14 +18,14 @@ Program Steps:
 10. Loop as many times as the user wants.
 
 Notes: 
-
-
----nums[] = {num1, num2, num3, num4, num5, sum, product, avg, smallestvalue, largestvalue, definefloor}
+upon executionfrom main() the program will check to see whether or not a test argument is passed. If it is, then a test is ran and the programs ends.
+If test arg isnt passed, then it will call the menu. all features will be called in the menu. After each feature is called in menu() the user will be prompted-
+if they want to continue doing more operations, whether or not they want a new set of numbers, or if they want to end. if they choose not to end, then the menu()-
+will loop until prompted otherwise-- prompting for new numbers at the beginning if they prompted for it.
 
 */
 #include <iostream>
 #include <cassert>
-#include <iomanip>
 
 using namespace std;
 
@@ -54,8 +54,9 @@ template <class T1>
         T1 result = (nums[1] + nums[2] + nums[3] + nums[4] + nums[0]);
         // cout << "dotest: " << dotest << endl;
         if (dotest == false) {
-            printf("\n%.2f + %.2f + %.2f + %.2f + %.2f = %.2f\n", nums[0], nums[1], nums[2], nums[3], nums[4], result);
-            cout << "The sum of all 5 numbers is: " << result << " And num[5] = " << nums[5] << endl;
+            cout << "\n\n\n\nYou chose to find the sum of the 5 numbers:\n" << endl;
+            printf("%.2f + %.2f + %.2f + %.2f + %.2f = %.2f\n\n", nums[0], nums[1], nums[2], nums[3], nums[4], result);
+
         } 
 
         //store the result in element 6 of nums[]
@@ -70,8 +71,8 @@ template <class T1>
         T1 result = (nums[0] * nums[1] * nums[2] * nums[3] * nums[4]);
 
         if (dotest == false) {
-        printf("\n%.2f * %.2f * %.2f * %.2f * %.2f = %.2f\n", nums[0], nums[1], nums[2], nums[3], nums[4], result);
-        cout << "The product of all 5 numbers is : " << result << " And num[6] = " << nums[6] << endl;
+        cout << "\n\n\n\nYou chose to define the product of the 5 numbers:\n" << endl;
+        printf("%.2f * %.2f * %.2f * %.2f * %.2f = %.2f\n\n", nums[0], nums[1], nums[2], nums[3], nums[4], result);
         }
 
         //store the result in element 7 of nums[]
@@ -83,10 +84,10 @@ template <class T1>
 // will calculate the average and will save the result in the 8th element -- nums[7]
 template <class T1>
     T1 avg(T1 nums[], bool dotest) {
-        T1 result = ((sum(nums, dotest)) / 5);
+        T1 result = ((sum(nums, true)) / 5);
 
         if (dotest == false) {
-            cout << "\nThe average of all 5 numbers is : " << result <<  endl;
+            cout << "\n\n\n\nYou chose to find the average between the 5 numbers:\n\nThe average of all 5 numbers is : " << result <<  "\n" << endl;
         }
 
         nums[7] = result; 
@@ -100,26 +101,26 @@ template <class T1>
 template <class T1>
     T1 definefloor(T1 nums[], bool dotest) {
 
-        T1 sumt = sum(nums, dotest);
+        T1 sumt = sum(nums, true);
         T1 result;
 
 
         int remainder = (int(sumt) % 2);
         if (remainder == 0 && sumt == 0) {
             if (dotest == false) {
-            cout << "\nThe sum floor is zero\n";
+            cout << "\n\n\n\nYou chose to define the sum floor:\n\nThe sum floor is zero\n\n";
             }
             nums[10] = 0;
         }
         else if (remainder == 0 && sumt != 0){
             if (dotest == false) {
-            cout << "\nThe sum floor is even\n";
+            cout << "\n\n\n\nYou chose to define the sum floor:\n\n The sum floor is even\n\n";
             }
             nums[10] = 1;
         } 
         else {
             if (dotest == false) {
-            cout << "\nThe sum floor is odd\n";
+            cout << "\n\n\n\nYou chose to define the sum floor:\n\nThe sum floor is odd\n\n";
             }
             nums[10] = 2;
         }
@@ -236,8 +237,11 @@ int main(int argc, char* argv[]) {
     nums[9] largestvalue
     nums[10] definefloor */
     double nums[11] = {0, 0, 0, 0 ,0 ,0 ,0 ,0 ,0, 0, 0};
-    bool dotest;
-    //no numbers have been imputted at the beginning of program. declare keepnums as false so it knows it needs new numbers.
+
+    //declaring bool that will be used throughout. if and only if bool == true, the the program will run the tests without printing the outputs, then end. 
+    bool dotest = false;
+
+    //no numbers have been nmputted at the beginning of program. declare keepnums as false so it knows it needs new numbers.
     bool keepnums = false;
 
     //keeprunning will remain true until the user prompts to end the program.
@@ -247,7 +251,7 @@ int main(int argc, char* argv[]) {
     if (argc == 2 && string(argv[1]) == "test") {
         dotest = true;
     }
-    else{
+    else {
         dotest = false;
     }
 
@@ -278,16 +282,15 @@ int main(int argc, char* argv[]) {
 
 
 void printmenu() {
-    cout << "\n\n\n\nPlease select one of the following options:\n\n";
+    cout << "\n\n\n\n\n\n\n\nPlease select one of the following options:\n\n";
     cout << "1. Calculate the sum of the 5 numbers.\n";
     cout << "2. Calculate the product of the 5 numbers.\n";
     cout << "3. Calculate the average of the 5 numbers.\n";
     cout << "4. Find the smallest value among the 5 numbers.\n";
     cout << "5. Find the largest value among the 5 numbers.\n";
     cout << "6. Find whether the floor of sum of the 5 numbers is even, odd, or 0.\n";
-    cout << "7. Print array.\n";
-    cout << "8. Exit Program\n";
-    cout << "------------------------------------------------------------------------\n" << endl; 
+    cout << "7. Exit Program\n";
+    cout << "------------------------------------------------------------------------\n\n" << endl; 
 }
 
 //
@@ -320,7 +323,7 @@ bool menu(double nums[], bool dotest) {
             
             /*getselection(min, max) allows for the same function to fetch selections while setting a requirement for the input to 
             be within the min and max. the largest and smallest values for the cases below are 1, 9 */
-            selection = getselection(1,8);
+            selection = getselection(1,7);
             switch(selection) {
                 case 1:
                     sum(nums, dotest);
@@ -388,10 +391,11 @@ bool menu(double nums[], bool dotest) {
 
 //prints out the smaller menu asking the user to exit or keep going.
 void promptagain() {
-    cout << "\n\nTo continue please select from the following:\n";
+    cout << "\n\n\nTo continue please select from the following:\n";
     cout << "1. Keep current numbers and go back to menu a\n";
     cout << "2. Select new numbers and go back to menu\n";
-    cout << "3. Exit program.\n\n";
+    cout << "3. Exit program.\n";
+    cout << "------------------------------------------------------------------------\n";
 }
 
 
@@ -400,11 +404,12 @@ int getselection(int min, int max) {
     int selection;
     do { 
         cout << "Your selection: ";
+        
         cin.clear();
         cin >> selection;
         if (selection >= min && selection <= max) {
             //if it makes it here then the selection is within 1 - 7, making the condition true and thus valid. continues fcn.
-            cout << "\n------------------------------------------------------------------------\n";
+            cout << "------------------------------------------------------------------------\n\n";
             break;
             }
 
@@ -437,37 +442,37 @@ double smallestvalue(double nums[], bool dotest) {
     if (nums[0] < nums[1] && nums[0] < nums[2] && nums[0] < nums[3] && nums[0] < nums[4]) {
 
         if (dotest == false) {
-        printf("num[0]   %.2f is the smallest number\n\n", nums[0]);
+        printf("\n\n\n\nYou chose to find the smallest value from the 5 numbers:\n\n%.2f is the smallest number\n\n", nums[0]);
         }
         result = nums[0];
         }
     else if (nums[1] < nums[0] && nums[1] < nums[2] && nums[1] < nums[3] && nums[1] < nums[4]) {
         if (dotest == false) {
-        printf("num[1]   %.2f is the smallest number\n\n", nums[1]);
+        printf("\n\n\n\nYou chose to find the smallest value from the 5 numbers:\n\n%.2f is the smallest number\n\n", nums[1]);
         }
         result = nums[1];
         }
     else if (nums[2] < nums[0] && nums[2] < nums[1] && nums[2] < nums[3] && nums[2] < nums[4]) {
         if (dotest == false) {
-        printf("num[2]   %.2f is the smallest number\n\n", nums[2]);
+        printf("\n\n\n\nYou chose to find the smallest value from the 5 numbers:\n\n%.2f is the smallest number\n\n", nums[2]);
         }
         result = nums[2];
     }
     else if (nums[3] < nums[0] && nums[3] < nums[1] && nums[3] < nums[2] && nums[3] < nums[4]) {
         if (dotest == false) {
-        printf("num[3]   %.2f is the smallest number\n\n", nums[3]);
+        printf("\n\n\n\nYou chose to find the smallest value from the 5 numbers:\n\n%.2f is the smallest number\n\n", nums[3]);
         }
         result = nums[3];
     }
     else if (nums[4] < nums[0] && nums[4] < nums[1] && nums[4] < nums[2] && nums[4] < nums[3]) {
         if (dotest == false) {
-        printf("num[4]   %.2f is the smallest number\n\n", nums[2]);
+        printf("\n\n\n\nYou chose to find the smallest value from the 5 numbers:\n\n%.2f is the smallest number\n\n", nums[2]);
         }
         result = nums[4];
     }
     else if (nums[4] == nums[0] && nums[4] == nums[1] && nums[4] == nums[2] && nums[4] == nums[3]) {
         if(dotest == false) {
-            cout << "they are all equal.\n";
+            cout << "\n\n\n\nYou chose to find the smallest value from the 5 numbers:\n\nThey are all equal.\n\n";
         }
     }
 
@@ -484,37 +489,37 @@ double largestvalue(double nums[], bool dotest) {
     if (nums[0] > nums[1] && nums[0] > nums[2] && nums[0] > nums[3] && nums[0] > nums[4]) {
         // cout << "nums[0] < nums[" << n << "]";
         if (dotest == false) {
-            printf("nums[0], or %.2f is the largest number\n", nums[0]);
+            printf("\n\n\n\nYou chose to find the largest value from the 5 numbers:\n\n%.2f is the largest number\n\n", nums[0]);
             result = nums[0];
             }
         }
     else if (nums[1] > nums[0] && nums[1] > nums[2] && nums[1] > nums[3] && nums[1] > nums[4]) {
         if (dotest == false) {
-            printf("nums[1], or %.2f is the largest number\n", nums[1]);
+            printf("\n\n\n\nYou chose to find the largest value from the 5 numbers:\n\n%.2f is the largest number\n\n", nums[1]);
             }
         result = nums[1];
     }
     else if (nums[2] > nums[0] && nums[2] > nums[1] && nums[2] > nums[3] && nums[2] > nums[4]) {
         if (dotest == false) {
-            printf("nums[2], or %.2f is the largest number\n", nums[2]);
+            printf("\n\n\n\nYou chose to find the largest value from the 5 numbers:\n\n%.2f is the largest number\n\n", nums[2]);
         }
         result = nums[2];
     }
     else if (nums[3] > nums[0] && nums[3] > nums[1] && nums[3] > nums[2] && nums[3] > nums[4]) {
         if (dotest == false) {
-            printf("nums[3], or %.2f is the largest number\n", nums[3]);
+            printf("\n\n\n\nYou chose to find the largest value from the 5 numbers:\n\n%.2f is the largest number\n\n", nums[3]);
             }
         result = nums[3];
     }
     else if (nums[4] > nums[0] && nums[4] > nums[1] && nums[4] > nums[2] && nums[4] > nums[3]) {
         if (dotest == false) {
-            printf("nums[4], or %.2f is the largest number\n", nums[4]);
+            printf("\n\n\n\nYou chose to find the largest value from the 5 numbers:\n\n%.2f is the largest number\n\n", nums[4]);
             }
         result = nums[4];
     }
     else if (nums[4] == nums[0] && nums[4] == nums[1] && nums[4] == nums[2] && nums[4] == nums[3]) {
         if(dotest == false) {
-        cout << "they are all equal.\n";
+        cout << "\n\n\n\nYou chose to find the largest value from the 5 numbers:\n\nthey are all equal.\n" << endl;
         }
         return 0;
     }
