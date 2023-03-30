@@ -13,7 +13,7 @@ CXXFLAGS = -c -g -Wall -std=c++17
 PROGRAM = string.out
 
 # list .cpp files separated by space
-CPPFILES = .cpp 
+CPPFILES = string.cpp 
 
 # make all rule/default rule that'll be run when we run "make"
 # first compile each file to object file
