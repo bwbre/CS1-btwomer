@@ -146,3 +146,64 @@ int main() {
 
 //     return 0;
 // }
+
+
+
+
+
+void printFlippedTriangle(int height) {
+    cout << "\n";
+    int row = 1;
+    int *rowTotal = 0;
+    int *colTotal = 0;
+    // row
+    while (row <= height) {
+        // column
+        for(int col = height; col>=row; col--)
+            cout << "* ";
+                        colTotal++;
+        row += 1;
+        rowTotal++;
+        cout << endl;
+    }
+        cout << "Row total: " << rowTotal << "Coltotal: " << colTotal<< endl;
+}
+
+
+
+
+
+/*  
+FIXME4          *FIXED*
+Design and implement a function that takes an integer as height and
+prints square of the given height with *.
+Square of height 5, e.g., would look like the following.
+
+*  *  *  *  *  
+*  *  *  *  *   
+*  *  *  *  *   
+*  *  *  *  *   
+*  *  *  *  *   
+
+*/
+void printSquare(int height) {
+    cout << "\n";
+    int row = 1;
+    // (var)Total can be used to run test functions. a square's area is always its length (columns) times it's width (rows)
+    // int rowTotal=0;
+    // int colTotal = 0;
+
+    while (row <= height) {
+        for (int col = 1; col <= height; col++) {
+            cout << "* ";
+            if (col == height) {
+                // colTotal++;
+            }
+        } 
+    rowTotal++;
+    row++;
+    cout << endl;
+    }
+    //
+    // cout << "Row total: " << rowTotal << "Coltotal: " << colTotal<< endl;
+}
