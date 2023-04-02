@@ -7,8 +7,48 @@
 using namespace std;
 
 
+int main() {
 
 
+
+    return 0;
+}
+
+
+
+/*-----search for strings*/
+// int main (int argc, char* argv[]) {
+//     string phrase;
+//     string wood[4];
+//     int woodidx = 0;
+//     string searchstr;
+
+//     string substrwords[phrase.length()];
+
+//     phrase = "how much wood could a wood chuck chuck if a wood chuck could chuck wood.";
+//     cout << "what to search for ";
+//     getline(cin, searchstr);
+
+
+//     for (size_t i = 0; i < phrase.length(); i++) {
+//         i = phrase.find(searchstr, i);
+//         if (i != string::npos) {
+//             cout << "Found phrase at index: " << i << endl;
+//             substrwords[woodidx] = phrase.substr(i, searchstr.length());
+//             woodidx++;
+//         } else {
+//             break;
+//         }
+
+//         for (int i = 0; i < 4; i++) {
+//             cout << "wood[" << i << "]: " << wood[i] << endl;
+//         }
+//     }
+
+
+
+
+// }
 
 
 
