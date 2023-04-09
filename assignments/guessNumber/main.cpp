@@ -31,33 +31,68 @@ Bonus: when user quits, program will provide stats of player
 using namespace std;
 
 int randomNumber();
-int readNumber(int*);
-int checkGuess(int, int);
-int game(int*);
+int readNumber();
+int checkGuess(int, int, double*, bool&);
+int game(double*, bool&);
+void printstats(double*);
+bool playagain(bool&, double*);
+void promptstats(double*);
+void testcheckguess(int, int, double*, bool&);
+
+
+void clearScreen() {
+    // use "cls" in windows and "clear" command in Mac and Linux
+    #ifdef _WIN32
+        system("clS");
+    #else
+        system("clear");
+    #endif
+}
+
 
 int main(int argc, char* argv[]) {
+    //start of game, keeprunning is true.. after each time the game is played this will be checked.
+    bool keeprunning = true;
+
     //array to store the stats
-    //[0] # games played, [1] winrate, [2] lossrate
-    int stats[3] = {0, 0, 0};
+    //[0]=# games played, [1]=winrate, [2]=lossrate
+    double stats[3] = {0, 0, 0};
+
     string fullname;
-    srand(time(0));
-    // cout << "Please enter your name: ";
-    // getline(cin, fullname);
-    // cout << "Greetings " << fullname << "!\n" << endl;
 
+    cout << "Please enter your name: ";
+    getline(cin, fullname);
+    cout << "\nGreetings " << fullname << "!\n" << endl;
+    cout << "This is the number guessing game. You will have 6 tries to guess a random number.\n\nTo begin press ENTER.";
+    cin.ignore(100000, '\n');
+
+
+    //if user passes test argument, test fcn will run.
+    if (argc == 2 && string(argv[1]) == "test") {
+        cout << "BEEP BOOP BEEP TESTING INITIATED." << endl;
+        int voidnum1 = 0;
+        int voidnum2 = 0;
+        testcheckguess(voidnum1, voidnum2, stats, keeprunning);
+        cout << "TESTING SUCCESS!\npress enter to exit." << endl;
+        keeprunning = false;
+        cin.ignore(1000, '\n');
+    }
     
-
-    game(stats);
-
+    if (keeprunning == true) {
+        game(stats, keeprunning);
+    }
 
     return 0;
 }
 
 
-int game(int *stats) {
+int game(double stats[], bool &keeprunning) {
     //guessnum will store the number of guesses the user has done.
     //game ends after the 6th incorrect try.
-    int guessnum = 0;
+    int guessnum = 1;
+
+
+    // cout << stats[0] << " " << stats[1] << " " << stats[2] << endl;
 
 
     //check will store the return value for checkGuess
@@ -67,95 +102,186 @@ int game(int *stats) {
     int check = 0;
 
 
-    //selection will hold the player's current guess.
-    int selection=0;
+    //userguess will hold the player's current guess.
+    int userguess = 0;
 
 
-    //will add one to the number of games played.
-    // cout << "\nstats[0]: " << stats[0] << endl;
-    stats[0] = (stats[0]+1);
-    // cout << "\nstats[0]: " << stats[0] << endl;
-
-    //rnum will store the random number
-    int rnum = randomNumber();
-    cout << "\nrnum: " << rnum << endl;
 
     //the game takes place in this loop.
-    //will continue to loop until a correct guess.
     do {
-        cout << "\nGuess#: " << guessnum << "\n" << endl;
-        
-        if (guessnum ==7) {
-            cout << "Sorry, you're out of guesses. The number was: " << rnum << "\n" << endl;
-            break;
+        //reset current guess number var to 1
+        guessnum = 1;
+        clearScreen();
+
+        //rnum will store the random number
+        int rnum = randomNumber();
+
+        //this will loop until the player wins or loses
+        do {
+            if (guessnum > 6) {
+                clearScreen();
+                cout << "\nYou're out of guesses.\nYOU LOSE!\n\n-------\nThe number was: " << rnum << "\n-------\n" << endl;
+                
+                //[0] # games played, [1] winrate, [2] lossrate
+                stats[2]++;
+                stats[0]++;
+
+                //passes 0 -- or a correct guess -- to break the do loop.
+                check = 0;
+
+            }
+            else {
+                if (guessnum == 6) {
+                cout << "\n\n---\nTHIS IS YOUR FINAL GUESS";
+                }
+
+                cout << "\n---\nGuess#: " << guessnum << "\n---" << endl;
+                guessnum++;
+
+                userguess = readNumber();
+                // cout << "\nuserguess : " << userguess << endl;
+
+                check = checkGuess(rnum, userguess, stats, keeprunning);
+                // cout << "Checkguess: " << check << endl;
+            }
         }
-
-        guessnum++;
-
-        selection = readNumber(stats);
-        // cout << "\nselection : " << selection << endl;
-
-        check = checkGuess(rnum, selection);
-        // cout << "Checkguess: " << check << endl;
+        while (check != 0);
+        promptstats(stats);
+        keeprunning = playagain(keeprunning, stats);
+        
     }
-    while (check != 0);
+    while (keeprunning == true);
 
-    cout << "game has ended." << endl;
 
+    cout << "\nThank you for playing!" << endl;
     return 0;
 }  
 
+
+
 int randomNumber() {
+    srand(time(0));
     int rnum = random()%20+1;
-    cout << "rnum: " << rnum << endl;
+    // cout << "rnum: " << rnum << endl;
 
     return rnum;
 }
 
-int readNumber(int *stats) {
-    int selection = 0;
+
+
+int readNumber() {
+    int userguess = 0;
 
     //do loop will run over and over until the user selects a valid input.
     do {
-        cout << "Please enter a number between 1 and 20: ";
-        cin >> selection; 
+        cout << "\nPlease enter a number between 1 and 20: ";
+        cin >> userguess;
         cout << endl;
-
         //validate the player's input is between 0-20.
-        if (selection > 0 && selection < 21) {
+        if (userguess > 0 && userguess < 21) {
             // cout << "\nDEBUG: valid\n";
-            // cout << "DEBUG: SELECTION: " << selection << endl;
-            return selection;
+            // cout << "DEBUG: userguess: " << userguess << endl;
+            return userguess;
         }
         else {
-            cout << "\nINVALID SELECTION.\n" << endl;
-            selection = 0;
+            cout << "\nINVALID userguess.\n" << endl;
             cin.clear();
         }
     }
-    while (selection == 0);
+    while (userguess == 0);
 
-    return 2020;
+    return userguess;
 }
 
 
-//returns: 0 if numbs are =, -1 if the first number is less than the second, 2 otherwise
-int checkGuess(int rnum, int selection) {
 
-    //check selection against the random number.
-    if (selection == rnum) { 
+//returns: 0 if numbs are =, -1 if the first number is less than the second, 2 otherwise
+int checkGuess(int rnum, int userguess, double stats[], bool& keeprunning) {
+
+    //check userguess against the random number.
+    if (userguess == rnum) { 
         cout << "Correct guess!\n" << endl;
+        stats[0] = (stats[0]+1);
+        stats[1] = (stats[1]+1);
+
+        //[0] # games played, [1] winrate, [2] lossrate
+ 
         return 0;
     }
-    else if (selection > rnum) {
-        cout << "Incorrect. The number is smaller than your guess, " << selection << endl;
+    else if (userguess > rnum) {
+        cout << "Incorrect. The number is smaller than your guess, " << userguess << endl;
         return 2;
     }
-    else if(selection < rnum) {
-        cout << "Incorrect. The number is larger than your guess, " << selection << endl;
+    else if(userguess < rnum) {
+        cout << "Incorrect. The number is larger than your guess, " << userguess << endl;
         return -1;
     }
 
-
     return 9000;
+}
+
+
+bool playagain(bool& keeprunning, double stats[]) {
+    string selection;
+
+    //prompt user if they want to play again
+    cout << "\n\nIf you would like to play again enter Y/y: ";
+    cin >> selection;
+
+    //check user input
+    if (selection == "Y" || selection == "y") {
+        keeprunning = true;
+    }
+    else {
+        keeprunning = false;
+    }
+
+    return keeprunning;
+}
+
+void printstats(double stats[]) {
+
+    double numgames = stats[0];
+    double wins = stats[1];
+    double losses = stats[2];
+    double lossrate = (losses / numgames)*100;
+    double winrate = (wins / numgames)*100;
+    cout << "STATS\n-------\nGames played: " << numgames << endl;
+    cout << "Winrate: " << winrate << endl;
+    cout << "Lossrate: " << lossrate << endl;
+}
+
+void promptstats(double stats[]) {
+    string selection;
+
+    //prompt if user wants to see their stats
+    cout << "\n\nWould you like to see your stats? enter Y/y for yes: ";
+    cin >> selection;
+    cout << "\n" << endl;
+
+    //check user input
+    if (selection == "Y" || selection == "y") {
+        printstats(stats);
+    }
+}
+
+void testcheckguess(int rnum, int userguess, double stats[], bool& keeprunning) {
+    //if checkguess == 0, the the guess and rnum are the same and it passes
+    rnum = 1;
+    userguess = 1;
+    assert(checkGuess(rnum, userguess,stats, keeprunning) == 0);
+
+    //if guess is == 0, the the guess and rnum are the same and it passes
+    rnum = 9;
+    userguess = 9;
+    assert(checkGuess(rnum, userguess,stats,keeprunning) == 0);
+
+    //if the guess is != 0, meaning the guess != rnum, then assert passes.
+    rnum = 5;
+    userguess = 1;
+    assert(checkGuess(rnum, userguess,stats,keeprunning) != 0);
+
+
+
+
 }
