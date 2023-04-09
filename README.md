@@ -48,7 +48,7 @@ Description: || Perform operations with numbers given by the user. <br />
 Date:        || 03/16/2023    <br />
 Due Date:    || 03/16/2023     <br />
 Progress:    || 100%          <br />
-Location:    || CS1-btwomer/labs/functions/  <br />
+Location:    || CS1-btwomer/labs/conditionals/  <br />
 Self-Grade:  || 100%          <br />
 Notes:       || from a menu the user can prompt what operation they want to peform, then prompted for two numbers. the program outputs the desired operation with the selected numbers.
 
@@ -58,7 +58,7 @@ Description: || Draw shapes. <br />
 Date:        || 04/02/2023    <br />
 Due Date:    || 04/02/2023     <br />
 Progress:    || 100%          <br />
-Location:    || CS1-btwomer/labs/functions/  <br />
+Location:    || CS1-btwomer/labs/loops/  <br />
 Self-Grade:  || 100%          <br />
 Notes:       || Draw a triangle, square, and upside-down triangle.
 
