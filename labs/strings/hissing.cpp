@@ -72,7 +72,7 @@ void solve() {
     // FIXME5 *FIXED*
     // Don't really understand this requirement, i feel like it limits the program for no reason-- plus breaks kattis' results.
     do {
-        cout << "Enter a string up to 30 characters long, without any spaces: ";
+        cout << "\nEnter a string up to 30 characters long, without any spaces: ";
         getline(cin, line);
         if (line.length() > 30 || line.find(" ", 0) != string::npos){
             cout << "\nINVALID: String must be under 30 characters without spaces.\n\n\n";
@@ -92,5 +92,5 @@ void solve() {
 
 
     // read string into line
-    cout << answer(line) << endl;
+    cout << answer(line) << "\n" << endl;
 }
