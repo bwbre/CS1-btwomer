@@ -1,7 +1,6 @@
 # CS1-btwomer <br /> Brendan Womer <br />
 ||Course:      || CSCI111 - CSI: Foundation of Computer Science     <br />
 ||Semester:    || Spring 2023   <br />
-||Due date     || 02/10/2023     <br />
 ||Git Username || bwbre          <br />
 ||Repository   || https://github.com/bwbre/CS1-btwomer   <br />
 
@@ -61,6 +60,26 @@ Progress:    || 100%          <br />
 Location:    || CS1-btwomer/labs/loops/  <br />
 Self-Grade:  || 100%          <br />
 Notes:       || Draw a triangle, square, and upside-down triangle.
+
+----Lab 6 <br/>
+Name:        || Pointers    <br />
+Description: || Perform the prompted operations. <br />
+Date:        || 04/13/2023    <br />
+Due Date:    || 04/13/2023     <br />
+Progress:    || 100%          <br />
+Location:    || CS1-btwomer/labs/pointers/  <br />
+Self-Grade:  || 100%          <br />
+Notes:       || Perform operations selected by user-- using enums and pointers.
+
+----Lab 7 <br/>
+Name:        || Array    <br />
+Description: || Manipulate a given array. <br />
+Date:        || 04/13/2023    <br />
+Due Date:    || 04/13/2023     <br />
+Progress:    || 100%          <br />
+Location:    || CS1-btwomer/labs/array/  <br />
+Self-Grade:  || 100%          <br />
+Notes:       || Prompt user for array length and the corresponding values in the array. Then, perform various operations against the array.
 
 
 <br />
