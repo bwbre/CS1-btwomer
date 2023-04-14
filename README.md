@@ -1,7 +1,6 @@
 # CS1-btwomer <br /> Brendan Womer <br />
 ||Course:      || CSCI111 - CSI: Foundation of Computer Science     <br />
 ||Semester:    || Spring 2023   <br />
-||Due date     || 02/10/2023     <br />
 ||Git Username || bwbre          <br />
 ||Repository   || https://github.com/bwbre/CS1-btwomer   <br />
 
