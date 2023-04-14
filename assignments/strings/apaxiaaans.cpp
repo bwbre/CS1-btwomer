@@ -29,12 +29,9 @@ void printdebug(string, int, int);
 
 int main(int argc, char* argv[] ) {
     string name;
- 
     cin >> name;
 
     name = searchname(name);
-    // dupelength(name, cindex, dupelen);
-    // removedupe(name, cindex, dupelen);
     printname(name);
 
 
@@ -56,13 +53,12 @@ string searchname(string name) {
     //begin scanning the name going through each individual element starting from 0.
     for (int i = 0; i <= name.length(); i++) {
         //conditional looking for duplicate letters. by comparing the current index to the following index.
-
         if (name[i+1] != string::npos && name[i+1] == name[i] ) {
             //saves the current position of the index to be used as an argument.
-            // cout << "found something" << endl;
             cindex = i;
 
             //find how many duplicate letters there are NOT COUNTING THE CURRENT INDEX. 
+            //if there are no more dupes, then dupelen == 0
             dupelen = dupelength(name, cindex, dupelen);
 
             // printdebug(name, cindex, dupelen);
@@ -73,7 +69,6 @@ string searchname(string name) {
             }
         }
     }
-    // cout << "wtf " << endl;
     return name;
 }
 
@@ -83,7 +78,7 @@ int dupelength(string name, int cindex, int dupelen) {
     int dupeendi;
 
     //starting from the current index, continue iterating through the elements until a new character is found,
-    //then declare the position of the final duplicate.
+    //then declare the position of the final duplicate to be the index before the new char is found--- the index of final duplicate character.
     for (int i = cindex; i < name.length(); i++) {
         if (name[i] != name[i+1]){
 
@@ -100,11 +95,7 @@ int dupelength(string name, int cindex, int dupelen) {
 }
 
 string removedupe(string name,int cindex, int dupelen) {
-    //if statement to make sure that
-    // if (dupelen > 0) {
         name.erase(cindex+1, dupelen);
-    // }
-
     return name;
 }
 
