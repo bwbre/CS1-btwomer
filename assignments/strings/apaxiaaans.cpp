@@ -16,6 +16,7 @@ Find duplicate characters in a single input, no white space string ranging in si
 
 #include <iostream>
 #include <string>
+#include <cassert>
 
 using namespace std;
 
@@ -24,11 +25,18 @@ int dupelength(string, int, int);
 string removedupe(string, int, int);
 void printname(string);
 int findlength(string);
+void test();
 
 void printdebug(string, int, int);
 
 int main(int argc, char* argv[] ) {
     string name;
+    if (argc == 2 && argv[1] == string("test")) {
+        test();
+        cout << "Test cases all pass." << endl;
+    }
+
+
     cin >> name;
 
     name = searchname(name);
@@ -102,6 +110,22 @@ string removedupe(string name,int cindex, int dupelen) {
 void printname(string name){
     cout << name;
 }
+
+void test() {
+    cout << "start of test.." << endl;
+    string name = "teeeeeesssssssssttttttt";
+    string correctname = "test";
+    assert(searchname(name) == correctname);
+
+    name = "ttttthhhhhissssissssateessssttt";
+    correctname = "thisisatest";
+    assert(searchname(name) == correctname);
+
+    name = "brendansawesomethisteeeessssttcasssseeedoesntfaaiiiil";
+    correctname = "brendansawesomethistestcasedoesntfail";
+    assert(searchname(name) == correctname);
+}
+
 void printdebug(string name, int cindex, int dupelen) {
     cout << "--DEBUG: cindex: " << cindex << "     dupelen: " << dupelen << "   name:" << name << endl;
 }
