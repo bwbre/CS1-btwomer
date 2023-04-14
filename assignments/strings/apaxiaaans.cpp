@@ -20,12 +20,12 @@ Find duplicate characters in a single input, no white space string ranging in si
 using namespace std;
 
 string searchname(string);
-int dupelength(string, int&, int);
-string removedupe(string, int&, int&);
+int dupelength(string, int, int);
+string removedupe(string, int, int);
 void printname(string);
 int findlength(string);
 
-void printdebug(string, int&, int&);
+void printdebug(string, int, int);
 
 int main(int argc, char* argv[] ) {
     string name;
@@ -66,6 +66,8 @@ string searchname(string name) {
             dupelen = dupelength(name, cindex, dupelen);
 
             // printdebug(name, cindex, dupelen);
+
+            //check to see whether or not there is a dupe
             if (dupelen > 0){
                 name = removedupe(name, cindex, dupelen);
             }
@@ -76,7 +78,7 @@ string searchname(string name) {
 }
 
 //starting from the current index, will find the length of the series of duplicate letters.
-int dupelength(string name, int &cindex, int dupelen) {
+int dupelength(string name, int cindex, int dupelen) {
     //position/index of the final duplicate letter found in char array.
     int dupeendi;
 
@@ -97,7 +99,7 @@ int dupelength(string name, int &cindex, int dupelen) {
     return 0;
 }
 
-string removedupe(string name,int &cindex, int &dupelen) {
+string removedupe(string name,int cindex, int dupelen) {
     //if statement to make sure that
     // if (dupelen > 0) {
         name.erase(cindex+1, dupelen);
@@ -109,6 +111,6 @@ string removedupe(string name,int &cindex, int &dupelen) {
 void printname(string name){
     cout << name;
 }
-void printdebug(string name, int &cindex, int &dupelen) {
+void printdebug(string name, int cindex, int dupelen) {
     cout << "--DEBUG: cindex: " << cindex << "     dupelen: " << dupelen << "   name:" << name << endl;
 }
