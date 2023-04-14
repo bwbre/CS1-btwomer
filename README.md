@@ -14,7 +14,7 @@ Description: || Draw the specified ASCII art <br />
 Date:        || 02/10/2023    <br />
 Due Date:    || 02/10/2023     <br />
 Progress:    || 100%          <br />
-Location:    || CS1-btwomer/labs/ascii/  <br />
+Location:    || CS1-btwomer/labs/ascii  <br />
 Self-Grade:  || 100%          <br />
 Notes:       || Draw specified ASCII art as well as the box with text between and save as main.cpp in appropriate folder
 <br /><br />
@@ -26,7 +26,7 @@ Description: || Calculate the circumference and area of a given radius <br />
 Date:        || 02/21/2023    <br />
 Due Date:    || 02/21/2023     <br />
 Progress:    || 100%          <br />
-Location:    || CS1-btwomer/labs/circle/  <br />
+Location:    || CS1-btwomer/labs/circle  <br />
 Self-Grade:  || 100%          <br />
 Notes:       || Prompt user for a radius, then calculate and output the circumference and area of the circle with the given radius.
 <br />
@@ -37,7 +37,7 @@ Description: || Calculate the distance between two sets of ordered pairs <br />
 Date:        || 03/04/2023    <br />
 Due Date:    || 03/04/2023     <br />
 Progress:    || 100%          <br />
-Location:    || CS1-btwomer/labs/functions/  <br />
+Location:    || CS1-btwomer/labs/functions  <br />
 Self-Grade:  || 100%          <br />
 Notes:       || Prompt user for two sets of ordered pairs. call a function to calculate the distance, and the the function works against a known set of points and distances.
 
@@ -47,7 +47,7 @@ Description: || Perform operations with numbers given by the user. <br />
 Date:        || 03/16/2023    <br />
 Due Date:    || 03/16/2023     <br />
 Progress:    || 100%          <br />
-Location:    || CS1-btwomer/labs/conditionals/  <br />
+Location:    || CS1-btwomer/labs/conditionals  <br />
 Self-Grade:  || 100%          <br />
 Notes:       || from a menu the user can prompt what operation they want to peform, then prompted for two numbers. the program outputs the desired operation with the selected numbers.
 
@@ -57,7 +57,7 @@ Description: || Draw shapes. <br />
 Date:        || 04/02/2023    <br />
 Due Date:    || 04/02/2023     <br />
 Progress:    || 100%          <br />
-Location:    || CS1-btwomer/labs/loops/  <br />
+Location:    || CS1-btwomer/labs/loops  <br />
 Self-Grade:  || 100%          <br />
 Notes:       || Draw a triangle, square, and upside-down triangle.
 
@@ -67,17 +67,27 @@ Description: || Perform the prompted operations. <br />
 Date:        || 04/13/2023    <br />
 Due Date:    || 04/13/2023     <br />
 Progress:    || 100%          <br />
-Location:    || CS1-btwomer/labs/pointers/  <br />
+Location:    || CS1-btwomer/labs/pointers  <br />
 Self-Grade:  || 100%          <br />
 Notes:       || Perform operations selected by user-- using enums and pointers.
 
 ----Lab 7 <br/>
-Name:        || Array    <br />
-Description: || Manipulate a given array. <br />
+Name:        || String    <br />
+Description: || looks for consecutive repeating characters. <br />
 Date:        || 04/13/2023    <br />
 Due Date:    || 04/13/2023     <br />
 Progress:    || 100%          <br />
-Location:    || CS1-btwomer/labs/array/  <br />
+Location:    || CS1-btwomer/labs/string  <br />
+Self-Grade:  || 100%          <br />
+Notes:       || Prompt user for word and it will hiss at you if there are two consecutive S --> ("ss").
+
+----Lab 8 <br/>
+Name:        || Array    <br />
+Description: || Manipulate a given array. <br />
+Date:        || 04/14/2023    <br />
+Due Date:    || 04/14/2023     <br />
+Progress:    || 100%          <br />
+Location:    || CS1-btwomer/labs/array  <br />
 Self-Grade:  || 100%          <br />
 Notes:       || Prompt user for array length and the corresponding values in the array. Then, perform various operations against the array.
 
@@ -133,6 +143,15 @@ Progress:  || 100%          <br />
 Location   || CS1-btwomer/assignments/guessNumber  <br />
 Self-Grade:|| 100%          <br />
 Notes:     || Guess the number game<br/>
+
+<br/>    ----Homework 06 <br/>
+Name:      || apaaaaaxiaaaaaaansssssss     <br />
+Date :     || 04/14/2023    <br />
+Due Date   || 04/14/2023    <br />
+Progress:  || 100%          <br />
+Location   || CS1-btwomer/assignments/strings  <br />
+Self-Grade:|| 100%          <br />
+Notes:     || will remove duplicate repeating characters from a name<br/>
 
 </details>
 
