@@ -7,33 +7,35 @@
 #include <string>
 
 using namespace std;
-
 struct Node {
     int data;
     Node *next;
 
 };
 
+void lisize(int*);
+Node* buildlist(int*, Node* );
+void printlist(int&);
+void deletelist(Node*);
+
 
 int main(int argc, char* argv[]) {
-    int listsize = 0;
-    Node *first = new Node({0, NULL});
+    int *listsize = 0;
+    //*head needs to be initialized.
+    Node currnode;
+    Node *head;
+    Node **first;
+    head = &currnode;
+    first = &head;
 
-    cout << "How long you want linked list?: ";
-    cin >> listsize;
+    lisize(listsize);
 
-    Node *currnode = first;
-    for (int i = 0; i < listsize; i++) {
-        Node *nextnode = new Node();
-        currnode->next = nextnode;
+    //pass the & because thats the value of 
+    buildlist(listsize, head);
+    
+    deletelist(head);
 
-        cout << "\nenter number: ";
-        cin >> nextnode->data;
-        nextnode->next = NULL;
-
-        currnode = nextnode;
-    }
-
+//DOUBLE POINTER PTR** IS PASS BY REFERENCE FOR POINTERS.
     // Node *second = new Node();
     // Node *third = new Node();
     // first->data = 42;
@@ -45,34 +47,60 @@ int main(int argc, char* argv[]) {
     // cout << "first->data: " << first->data << endl;
     // cout << "second->data: " << second->data << endl;
     // cout << "third->data: " << third->data << endl;
-
-
-    Node *currnode;
-    currnode = first;
+    // Node *currnode;
+    // currnode = first;
 
     /*NOTE: use curnode, not curnode->next... next goes to final and checks next which returns null, thus wont print.*/
-    while(currnode->next != NULL) {
+    while(currnode != NULL) {
         cout << "curnode->data: " << currnode->data << endl;
         currnode = currnode->next;
 
     }
-
-    // cout << "curnode->data: " << curnode->data << endl;
-
-
     /*TO DELETE THE SELF GENERATED LINKED LIST*/
-    Node *curnode;
-    curnode = first;
-    while (curnode != NULL){
-        cout << "DEBUG: inside delete loop for currnode: " << endl;
-        Node *tmpnode = curnode;
-        curnode = curnode->next;
-        delete tmpnode;
-    }
-
     delete first;
     // delete second;
     // delete third;
 
     return 0;
 }
+
+void printlist(Node *head) {
+    while (head != NULL) {
+        cout << "head->data: " << head->data << endl;
+        head = head->next;
+    }
+
+}
+
+Node* buildlist(int listsize, Node *head) {
+    //
+    Node *currnode = new (Node());
+    head = currnode;
+    for (int i = 0; i < listsize; i++) {
+        Node *nextnode = new Node();
+        currnode->next = nextnode;
+
+        cout << "\nenter number: ";
+        cin >> nextnode->data;
+        nextnode->next = NULL;
+
+        currnode = nextnode;
+    }
+}
+
+void lisize(int& listsize) {
+    cout << "How long you want linked list?: ";
+    cin >> listsize;
+
+}
+
+void deletelist(Node *head) { 
+    while (head != NULL){
+        cout << "DEBUG: inside delete loop for currnode: " << endl;
+        Node *tmpnode = head;
+        head = curnode->next;
+        delete tmpnode;
+    }
+
+}
+

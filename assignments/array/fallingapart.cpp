@@ -34,13 +34,18 @@ bobscore
 
 using namespace std;
 
-void sortArr(int&, int);
+void sortArr(int*, int);
+void getnums(int*, int);
+void printstuff(int*, int);
+void calcscore(int*, int, int&, int&);
 
 
 
 int main(int argc, char* argv[]) {
     //declare value array size, bob's score, Alice's score.
-    int sizen, bobscore, alicescore;
+    int sizen;
+    int bobscore = 0;
+    int alicescore = 0;
 
 
     //arraysize input, kattis will only prompt 1-15
@@ -51,45 +56,55 @@ int main(int argc, char* argv[]) {
     int intsplit[sizen];
 
     //input for elements of intsplit array
-    cin >> intsplit;
+    getnums(intsplit, sizen);
 
     //sort the array in descending order.
     sortArr(intsplit, sizen);
-    
+    // printstuff(intsplit, sizen);
+    calcscore(intsplit, sizen, alicescore, bobscore);
 
-
-
+    return 0;
 }
 
-
-void sortArr(int &intsplit[], int sizen) {
-    int tmpnum; //placeholder number
-    for (int i = 0; i > sizen; i++) {
+void sortArr(int intsplit[], int sizen) {
+    int tmpnum;
+    for (int i = 0; i < sizen; i++) {
         //if arr[i] < arr[i+1] then swap the values.
         //will loop from the beginning until arr[] is in order
-        if (intsplit[i] < intsplit[i+1]) {
+        if (intsplit[i] < intsplit[i+1] && intsplit[i+1] < 101) {
             tmpnum = intsplit[i]; //store in tmpnum
             intsplit[i] = intsplit[i+1]; //over
             intsplit[i+1] = tmpnum;
-            i = 0; //reset the loop
-            for (j = 0; j >= sizen; j++) {
-                cout << "intsplit[" << i << "] : " << intsplit[i] << endl;
-            }
+            i=-1;
         }
     }
-
 }
 
-
-
-
-
-void userinputs(int &intsplit[], int &sizen) {
-    //user iu
-
-
-        for (i = 0; i < sizen; i++) {
-            intsplit[i] = 
+void getnums(int intsplit[], int sizen) {
+    for (int i = 0; i < sizen; i++) {
+        int tmpnum;
+        cin >> tmpnum;
+        intsplit[i] = tmpnum;
     }
+}
+
+void printstuff(int intsplit[], int sizen) {
+    for (int i = 0; i < sizen; i++) {
+        cout << "-intsplit[" << i << "] : " << intsplit[i] << endl;
+    }
+}
+
+void calcscore(int intsplit[], int sizen, int &alicescore, int &bobscore) {
+    for (int i = 0; i < sizen; i++) {
+        if (i%2 != 0) {
+            bobscore = (bobscore + intsplit[i]);
+
+        }
+        else {
+            alicescore = (alicescore + intsplit[i]);
+        }
+    }
+    cout << alicescore << " " << bobscore;
+
 
 }

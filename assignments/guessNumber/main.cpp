@@ -91,23 +91,18 @@ int game(double stats[], bool &keeprunning) {
     //game ends after the 6th incorrect try.
     int guessnum = 1;
 
-
-    // cout << stats[0] << " " << stats[1] << " " << stats[2] << endl;
-
-
     //check will store the return value for checkGuess
     //0 means correct guess,
     //-1 means the guess < the random number
     //2 for guess > random number
     int check = 0;
 
-
     //userguess will hold the player's current guess.
     int userguess = 0;
 
 
-
-    //the game takes place in this loop.
+    /*the game takes place in this loop.
+        uses bool as the condition for looping.*/
     do {
         //reset current guess number var to 1
         guessnum = 1;
@@ -162,8 +157,6 @@ int game(double stats[], bool &keeprunning) {
 int randomNumber() {
     srand(time(0));
     int rnum = random()%20+1;
-    // cout << "rnum: " << rnum << endl;
-
     return rnum;
 }
 
@@ -179,8 +172,6 @@ int readNumber() {
         cout << endl;
         //validate the player's input is between 0-20.
         if (userguess > 0 && userguess < 21) {
-            // cout << "\nDEBUG: valid\n";
-            // cout << "DEBUG: userguess: " << userguess << endl;
             return userguess;
         }
         else {
@@ -195,17 +186,14 @@ int readNumber() {
 
 
 
-//returns: 0 if numbs are =, -1 if the first number is less than the second, 2 otherwise
+/* --returns: 0 if numbs are =, -1 if the first number is less than the second, 2 otherwise*/
 int checkGuess(int rnum, int userguess, double stats[], bool& keeprunning) {
 
     //check userguess against the random number.
     if (userguess == rnum) { 
         cout << "Correct guess!\n" << endl;
-        stats[0] = (stats[0]+1);
+        stats[0] = (stats[0]+1); //[0] # games played, [1] winrate, [2] lossrate
         stats[1] = (stats[1]+1);
-
-        //[0] # games played, [1] winrate, [2] lossrate
- 
         return 0;
     }
     else if (userguess > rnum) {
