@@ -12,20 +12,9 @@ Steps:
     a) because they are playing optimally, they will pick largest number
         -- an array sorted from greatest to least will satisfy this.
 4) calculate the sum of each "player's" score after there are no more elements left.
-5) output is a single line, the sum of Alice's and Bob's selections.
+5) output in a single line, the sum of Alice's and Bob's selections.
 6) ????
 7) profit.
-
-fcns:
-main
-sort
-calcscores
-
-var:
-arrsize
-alicescore
-bobscore
-
 */  
 
 #include <iostream>
@@ -81,6 +70,7 @@ void sortArr(int intsplit[], int sizen) {
 }
 
 void getnums(int intsplit[], int sizen) {
+    //will loop until all n number elements of intsplit[] are filled.
     for (int i = 0; i < sizen; i++) {
         int tmpnum;
         cin >> tmpnum;
@@ -89,16 +79,17 @@ void getnums(int intsplit[], int sizen) {
 }
 
 void printstuff(int intsplit[], int sizen) {
+    //debug stuff
     for (int i = 0; i < sizen; i++) {
         cout << "-intsplit[" << i << "] : " << intsplit[i] << endl;
     }
 }
 
 void calcscore(int intsplit[], int sizen, int &alicescore, int &bobscore) {
+    //if i in array[i] is odd or == 0, then it's alice's turn
     for (int i = 0; i < sizen; i++) {
         if (i%2 != 0) {
             bobscore = (bobscore + intsplit[i]);
-
         }
         else {
             alicescore = (alicescore + intsplit[i]);
