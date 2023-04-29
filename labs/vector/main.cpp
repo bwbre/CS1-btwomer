@@ -57,11 +57,17 @@ int main()
         switch(choice) {
             case 1:
                 // FIXME3
-                cout << "FIXME\n";
+                cout << "Enter a positive decimal number:  ";
+                cin >> decimalNum;
+                binary = decToBin(decimalNum);
+                printf("(%s) base 10 = (%llu) base 8\n", decimalNum, binary.c_str());
                 break;
             case 2:
                 // FIXME4
-                cout << "FIXME\n";
+                cout << "Enter a binary number:  ";
+                cin >> binary;
+                decimalNum = binToDec(binary);
+                printf("(%s) base 8 = (%llu) base 10\n", binary.c_str(), decimalNum);
                 break;
             case 3:
                 cout << "Enter a positive decimal number: ";
@@ -99,23 +105,24 @@ string decToBin(llu num) {
 
 llu binToDec(string binaryNumber)
 {
+    
+    // FIXME6 - use algorithm described in Ch03-StdInputOutput chapter  -*FIXED*
+    // or use hints from binToOct function
+
     //iterate through each number from right to left, 
     //increasing the power by 2 for each bit and adding the sums.
-    int digit;
+    int digit = 0;
     int exp = 0;
     llu ans = 0;
-    vector<int> octet = int(binaryNumber);
-    for (i = octet.size()-1; i>=0; i--) {
-        digit = octect[i];
-        ans += pow(digit, exp);
-        exp++;
-        printdebug(digit, exp, ans, octect);
+    //including element 0, there are always 7 digits in an octet.
+    for (int i = binaryNumber.size()-1; i >= 0; i--) {   
+        digit = int(binaryNumber[i]) - int('0');
+        if (digit == 1) {
+            ans += pow(2, exp);
+        }
+        exp ++;
     }
-    
-
-    // FIXME6 - use algorithm described in Ch03-StdInputOutput chapter
-    // or use hints from binToOct function
-    return 0;
+    return ans;
 }
 
 void printdebug(int digit, int exp, llu ans, int octet) {
