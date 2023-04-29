@@ -56,16 +56,14 @@ int main()
         choice = menuOption();
         switch(choice) {
             case 1:
-                // FIXME3
+                // FIXME3   *FIXED*
                 cout << "Enter a positive decimal number:  ";
                 cin >> decimalNum;
-                // cin.ignore(100000, '\n');
-                cout << " YOYOYO";
                 binary = decToBin(decimalNum);
-                // printf("(%llu) base 10 = (%s) base 8\n", decimalNum, binary.c_str());
+                printf("(%llu) base 10 = (%s) base 8\n", decimalNum, binary.c_str());
                 break;
             case 2:
-                // FIXME4
+                // FIXME4    *FIXED*
                 cout << "Enter a binary number:  ";
                 cin >> binary;
                 decimalNum = binToDec(binary);
@@ -99,24 +97,26 @@ int main()
 }
 
 string decToBin(llu num) {
-    // FIXME5 - use algorithm step in Ch03-StdInputOutput chapter
-    // or use hint from decToOct function
-        cout << "Yo";
+    // FIXME5 - use algorithm step in Ch03-StdInputOutput chapter   *FIXED*
+    /*
+    1.Divide the decimal number by 2 until the remainder is 0
+    2.Arrange remainders in descending order to get final result
+     */
     int remainder;
     llu quotient = num;
     string ans = "";
     vector<int> binary;
-    cout << "Yo";
+    //
     while (!quotient == 0) {
         remainder = (quotient%2);
         quotient = (quotient/2);
         binary.push_back(remainder);
     }
-    while (!binary.size() == 0); {
+    //add each remainder in descending order
+    while (!binary.empty()) {
         ans += to_string(binary.back());
         binary.pop_back();
     }
-    cout << "ans: " << ans;
     return ans;
 }
 
@@ -126,17 +126,25 @@ llu binToDec(string binaryNumber)
     // FIXME6 - use algorithm described in Ch03-StdInputOutput chapter  -*FIXED*
     // or use hints from binToOct function
 
-    //iterate through each number from right to left, 
-    //increasing the power by 2 for each bit and adding the sums.
+    /*
+    1.each bit int descending order is raised to a power of n, starting at n=0
+        --for each bit n is increased n+1;
+    2.the sums are added to find the base 10 equivalent. 
+    */
     int digit = 0;
     int exp = 0;
     llu ans = 0;
-    //including element 0, there are always 7 digits in an octet.
-    for (int i = binaryNumber.size()-1; i >= 0; i--) {   
+    
+    //for each element from right to left
+    for (int i = binaryNumber.size()-1; i >= 0; i--) {  
+        //the digit is the value of the element[i] 
         digit = int(binaryNumber[i]) - int('0');
+        //if digit is != 1, then it has no value and thus ignored
         if (digit == 1) {
+            //the sums of all bits = 1 to the nth power is the answer
             ans += pow(2, exp);
         }
+        //for each bit the exponent increass
         exp ++;
     }
     return ans;
@@ -171,7 +179,6 @@ string decToOct(llu num)
         remainder = quotient%divisor;
         quotient = quotient/divisor;
         octal.push_back(remainder);
-        // cout << "quotient = " << quotient << " " << remainder << endl;
     }
 
     // step 3. convert octal vector into string for easy printing the result
