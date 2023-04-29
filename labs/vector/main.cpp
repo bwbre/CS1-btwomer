@@ -99,7 +99,19 @@ int main()
 string decToBin(llu num) {
     // FIXME5 - use algorithm step in Ch03-StdInputOutput chapter
     // or use hint from decToOct function
-    
+    int remainder;
+    llu quotient = num;
+    string ans = "";
+    vector<int> binary;
+    while (!quotient == 0) {
+        remainder = (quotient%2);
+        quotient = (quotient/2);
+        binary.push_back(remainder);
+    }
+    while (!binary.size() == 0); {
+        ans += binary.end();
+        binary.pop_back();
+    }
     return to_string(num);
 }
 
