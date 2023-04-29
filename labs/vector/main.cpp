@@ -59,8 +59,10 @@ int main()
                 // FIXME3
                 cout << "Enter a positive decimal number:  ";
                 cin >> decimalNum;
+                // cin.ignore(100000, '\n');
+                cout << " YOYOYO";
                 binary = decToBin(decimalNum);
-                printf("(%s) base 10 = (%llu) base 8\n", decimalNum, binary.c_str());
+                // printf("(%llu) base 10 = (%s) base 8\n", decimalNum, binary.c_str());
                 break;
             case 2:
                 // FIXME4
@@ -99,20 +101,23 @@ int main()
 string decToBin(llu num) {
     // FIXME5 - use algorithm step in Ch03-StdInputOutput chapter
     // or use hint from decToOct function
+        cout << "Yo";
     int remainder;
     llu quotient = num;
     string ans = "";
     vector<int> binary;
+    cout << "Yo";
     while (!quotient == 0) {
         remainder = (quotient%2);
         quotient = (quotient/2);
         binary.push_back(remainder);
     }
     while (!binary.size() == 0); {
-        ans += binary.end();
+        ans += to_string(binary.back());
         binary.pop_back();
     }
-    return to_string(num);
+    cout << "ans: " << ans;
+    return ans;
 }
 
 llu binToDec(string binaryNumber)
@@ -137,12 +142,12 @@ llu binToDec(string binaryNumber)
     return ans;
 }
 
-void printdebug(int digit, int exp, llu ans, int octet) {
+void printdebug(int digit, int exp, llu ans, vector<int> notarray) {
     cout << "digit = " << digit << endl;
     cout << "exp = " << exp << endl;
     cout << "ans = " << ans << endl;
-    for (int i = 0; i > octet.size(); i++) {
-        cout << "octect[" << i << "] = " << octet[i] << endl; 
+    for (int i = 0; i > notarray.size(); i++) {
+        cout << "octect[" << i << "] = " << notarray[i] << endl; 
     }
 
 }
