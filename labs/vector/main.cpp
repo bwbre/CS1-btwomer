@@ -99,9 +99,33 @@ string decToBin(llu num) {
 
 llu binToDec(string binaryNumber)
 {
+    //iterate through each number from right to left, 
+    //increasing the power by 2 for each bit and adding the sums.
+    int digit;
+    int exp = 0;
+    llu ans = 0;
+    vector<int> octet = int(binaryNumber);
+    for (i = octet.size()-1; i>=0; i--) {
+        digit = octect[i];
+        ans += pow(digit, exp);
+        exp++;
+        printdebug(digit, exp, ans, octect);
+    }
+    
+
     // FIXME6 - use algorithm described in Ch03-StdInputOutput chapter
     // or use hints from binToOct function
     return 0;
+}
+
+void printdebug(int digit, int exp, llu ans, int octet) {
+    cout << "digit = " << digit << endl;
+    cout << "exp = " << exp << endl;
+    cout << "ans = " << ans << endl;
+    for (int i = 0; i > octet.size(); i++) {
+        cout << "octect[" << i << "] = " << octet[i] << endl; 
+    }
+
 }
 
 string decToOct(llu num)
