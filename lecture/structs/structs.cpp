@@ -18,6 +18,7 @@ STRUCTS:
     -a block of memory with two addresses.. the two addresses are next to one anothers each memory block.
     -templates can be used. call before the struct like normal and replace all the data types to the desired <TYPE>
 */
+
 struct Rectangle {
 /*The order you call the struct is sequential. with an array it goes in order from top to bottom. starting from array[0, 1, ..]*/
     float side1;
