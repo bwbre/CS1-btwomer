@@ -39,7 +39,9 @@ void readdata(fstream& fin, Student* Students, int& linenumber) {
     string token;
         int counter=0;
 
-    while (getline(fin, currentline)) {
+    while (!fin.eof()) {
+
+        getline(fin, currentline)
 
         stringstream ss(currentline, token, ',');
         cout << "DEBUG: TOKEN " << token << endl;
