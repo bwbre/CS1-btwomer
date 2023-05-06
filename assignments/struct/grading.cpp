@@ -59,14 +59,14 @@ struct Student {
 //fcns used to prompt user
 string promptsourcefile();
 string promptdestfile();
-//open, define size, and lines
-void examinefile();
-    int getlen();
-//create a  struct for each student 
-// and save to a buffer
-void createstruct();
-// each line is a student so it will iterate through each line and save it to its own struct
-void copytobuffer(ifstream&, Student*, int&);
+
+//find the number of lines in the files
+void findlength(ifstream&, int&);
+
+//will be the parent fcn
+void copyfile(Student*, int&, string&);
+    //one line at time, copy to stringstream, then copy to heap that is created for each struct.
+    void copytobuffer(ifstream&, Student*, int&);
 //write to the output file
 void writetofile();
 //find averages
@@ -82,30 +82,25 @@ void debugprintstruct(Student*, int&);
 int main(int argc, char* argv[]) {
     int length=0;
     string sourcefile, destfile;
-    vector<string> classroster;
-    
+    ifstream fin;
+    ofstream fout;
+
     sourcefile = "classdata.csv";
     // sourcefile = promptsourcefile();
     // destfile = promptdestfile();
 
-    ifstream fin;
     fin.open(sourcefile);
+        findlength(fin, length);
+        Student *students = new Student[length];
+        copyfile(students, length, sourcefile);
+        copytobuffer(fin, students, length);
+    fin.close();
 
-    string tmp;
-    while ( !fin.eof() && getline(fin, tmp)) {
-        length++;
-    }
-    fin.seekg(0);
-    // tmp = NULL;
-    Student *students = new Student[length];
 
-    copytobuffer(fin, students, length);
-    fin.seekg(0);
-    cout << "length: " << length << endl;
     debugprintstruct(students, length);
     cout << "outside of everything" << endl;
     
-    fin.close();
+
     delete[] students;
     return 0;
 }
@@ -133,25 +128,25 @@ void debugprintstruct(Student* student, int& length) {
     }
 }
 
-//create a struct and save to their own heap
-void createstruct(vector<string> classroster) {
-    
-}
-
 //copy each line to a buffer that will temp store the data
-void copyfile() {
+void copyfile(Student* students, int &length, string &sourcefile) {
+    // ifstream fin;
+    // fin.open(sourcefile);
 
+    // findlength(fin, length);
+    // copytobuffer(fin, students, length);
 
+    // fin.close();
 }
 
-// void readfile(ifstream& fin, int& length) {
-//     int tmp;
-//     while (!eof()) {
+void findlength(ifstream& fin, int& length) {
+    string tmp;
+    while (!fin.eof() && getline(fin, tmp)) {
+        length ++;
+    }
+    fin.seekg(0);
+}
 
-//         getline(fin, tmp)
-//     }
-
-// }
 //will copy the file to structs-- which have their own heap.
 void copytobuffer(ifstream& fin, Student* student, int& length) {
     int linecounter=0;
@@ -161,6 +156,8 @@ void copytobuffer(ifstream& fin, Student* student, int& length) {
             stringstream ss(currentline);
             cout << currentline << endl;
             // debugprintstruct(student, length);
+
+            //The order is fixed so input into struct in the given order.
             ss >> student[linecounter].fname;
             ss >> student[linecounter].lname;
             ss >> student[linecounter].scores[0];
@@ -183,10 +180,10 @@ void writetofile() {
 int calcavgtestscore(Student* student) {
         int tmpavg, elementvalue;
         string tmpscores[4];
-        for (int currline = 0; currline < 4; currline ++){
+        for (int currstudent = 0; currstudent < 4; currstudent ++){
             //copy all values for the current line to a temp placeholder array
             for (int j = 0; j < 5; j++) {
-                tmpscores[j] = student[currline].scores[j];
+                tmpscores[j] = student[currstudent].scores[j];
             }
             // int numberoftests = (tmpscores.end() - tmpscores->begin());
             for (int scoreidx = 0; scoreidx < 4; scoreidx++) {
