@@ -52,6 +52,7 @@ struct Student {
     string lname;
     string scores[4];
     int average;
+    string grade;
     int *next;
 };
 
@@ -70,9 +71,9 @@ void copyfile(Student*, int&, string&);
 //write to the output file
 void writetofile();
 //find averages
-int calcaveragetestscore(string*, int&);
+int calcaveragetestscore(Student*, int&);
 //iomanip to create a table
-void formattable();
+void printtable(Student*, int&);
 
 
 void debugprintstruct(Student*, int&);
@@ -91,13 +92,18 @@ int main(int argc, char* argv[]) {
 
     fin.open(sourcefile);
         findlength(fin, length);
+        // cout << "len : " << length << endl;
         Student *students = new Student[length];
-        copyfile(students, length, sourcefile);
         copytobuffer(fin, students, length);
     fin.close();
+    cout << "after file saved to buffer" << endl;
 
+    calcaveragetestscore(students, length);
 
-    debugprintstruct(students, length);
+    
+    printtable(students, length);
+
+    // debugprintstruct(students, length);
     cout << "outside of everything" << endl;
     
 
@@ -154,7 +160,7 @@ void copytobuffer(ifstream& fin, Student* student, int& length) {
     while (!fin.eof()){
         while (getline(fin, currentline)) {
             stringstream ss(currentline);
-            cout << currentline << endl;
+            // cout << currentline << endl;
             // debugprintstruct(student, length);
 
             //The order is fixed so input into struct in the given order.
@@ -177,28 +183,45 @@ void writetofile() {
 }
 
 //find averages of test score
-int calcavgtestscore(Student* student) {
-        int tmpavg, elementvalue;
-        string tmpscores[4];
-        for (int currstudent = 0; currstudent < 4; currstudent ++){
-            //copy all values for the current line to a temp placeholder array
-            for (int j = 0; j < 5; j++) {
-                tmpscores[j] = student[currstudent].scores[j];
-            }
-            // int numberoftests = (tmpscores.end() - tmpscores->begin());
-            for (int scoreidx = 0; scoreidx < 4; scoreidx++) {
-                elementvalue = stoi(tmpscores[scoreidx]);
-                tmpavg = tmpavg + elementvalue;
-            }
+int calcaveragetestscore(Student* students, int &length) {
+    int tmpavg=0;
+    //for each student
+    for (int currstudent = 0; currstudent < length; currstudent ++){
+        //add each of their test scores
+        for (int j = 0; j < 4; j++) {
+            // cout << "students[currstudent].scores[j] : " << students[currstudent].scores[j] << endl;
+            tmpavg += stoi(students[currstudent].scores[j]);
         }
-        tmpavg = tmpavg/4;
-        return tmpavg;
+        //then divide the sum by 4 and save it to current student's struct
+        // cout << "DEBUG: students[" << currstudent << "] tmpavg: " << tmpavg << endl;
+        students[currstudent].average = tmpavg/4;
+        // cout << "DEBUG: students[" << currstudent << "] avg: " << students[currstudent].average << endl;
+        tmpavg = 0;
+    }
+    return tmpavg;
 }
 
 //using iomanip to format the data to a table
-void formattable() {
+void printtable(Student* students, int &length) {
+    cout << "yoyo" << endl;
+    cout << setfill('=') << setw(90) << '\n';
+    cout << setfill(' ') << "fname" << setw(15) <<  "lname" << setw(20) <<  "test1" << setw(10)  << "test2" << setw(10) << "test3" << setw(10) <<  "test4" << setw(10) << "avg" << setw(10) << "grade" << endl;
+    cout << setfill('=') << setw(90) << '\n';
+    for (int currstudent = 0; currstudent < length; currstudent++) {
+        cout << left << setfill(' ') <<
+            setw(15) << students[currstudent].fname << 
+            setw(21) << students[currstudent].lname << 
+            setw(10) << students[currstudent].scores[0] <<
+            setw(10) << students[currstudent].scores[1] << 
+            setw(10) << students[currstudent].scores[2] << 
+            setw(12) << students[currstudent].scores[3] << 
+            setw(10) << students[currstudent].average << 
+            setw(10) << students[currstudent].grade << 
+            '\n';
+    }
 
 
+    cout << "\n\n" << endl; 
 }
 
 
