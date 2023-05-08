@@ -153,6 +153,16 @@ Location   || CS1-btwomer/assignments/strings  <br />
 Self-Grade:|| 100%          <br />
 Notes:     || will remove duplicate repeating characters from a name<br/>
 
+<br/>    ----Homework 08 <br/>
+Name:      || Gradebook Program     <br />
+Date :     || 05/01/2023    <br />
+Due Date   || 05/01/2023    <br />
+Progress:  || 100%          <br />
+Location   || CS1-btwomer/assignments/struct  <br />
+Self-Grade:|| 80%          <br />
+Notes:     || copy data from a source file, perform calculcations, format, then output into a new file. did not realize until the very end that i was supposed to find the averages for each test... smooth brain thought it was class average for the entire class' overall avg.<br/>
+
+
 </details>
 
 <!-- name Brendan 
