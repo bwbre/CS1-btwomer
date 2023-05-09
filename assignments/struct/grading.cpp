@@ -56,39 +56,43 @@ struct Student {
 };
 
 struct Class {
+    int size;
     float average;
-    int max;
-    int min;
+    int max[4];
+    int min[4];
+    vector<int> test1scores;
+    vector<int> test2scores;
+    vector<int> test3scores;
+    vector<int> test4scores;
+    float testaverages[4];
     float letterGradeProportions[5];
 };
 
-//-----Fcn prototypes
+
 //fcns used to prompt user
 string promptsourcefile();
 string promptdestfile();
-
 //find the number of lines in the files
 void findlength(ifstream&, int&);
-
-//will be the parent fcn
-void copyfile(Student*, int&, string&);
-//one line at time, copy to stringstream, then copy to heap that is created for each struct.
+//copy file to buffe
 void copytobuffer(ifstream&, Student*, int&);
-//write to the output file
+//write to output file in table format
 void writetofile(ofstream&, Student*, Class*, int&);
+//calc an individual student's letter grade
 void calclettergrade(Student*, int&);
-void calcAverageTestScore(Student*, int&); //find averages for each student and save each student's struct
-//find the students letter grade
 
-
-void calcClassStats(Student*, Class*, int&);
+//calculate stats and class data
 void copyClassDataFromBuffer(Student*, int&, float*, string*);
+void calcAverageTestScore(Student*, Class*, int&); //find averages for each student and save each student's struct
+void classAverages(Student*, Class*, int&);
+void calcClassStats(Student*, Class*, int&);
 void calcClassAveragesStats(Student*, Class*, int&);
 void calcClassLetterGradesStats(Class*, int&, string*);
+void ClassAverages(Student*, Class*, int&);
+void testMinMax(Student*, Class*, int&);
 
-//iomanip to create a table
+//iomanip to print table to consolde -- for debugging and visual aid
 void printtable(Student*, Class*, int&);
-void debugprintstruct(Student*, int&);
 
 
 
@@ -98,27 +102,32 @@ int main(int argc, char* argv[]) {
     ifstream fin;
     ofstream fout;
 
-    // sourcefile = "classdata.csv";
-    // destfile = "output.txt";
+    //get source and output file
     sourcefile = promptsourcefile();
     destfile = promptdestfile();
 
+    //open and copy data from source file
     fin.open(sourcefile);
     Class *currentclass = new Class;
     findlength(fin, length);
+    currentclass->size = length;
     Student *students = new Student[length];
     copytobuffer(fin, students, length);
     fin.close();
 
-    calcAverageTestScore(students, length);
+    //use data in buffer for calculations
+    calcAverageTestScore(students, currentclass, length);
     calclettergrade(students, length);
     calcClassStats(students, currentclass, length);
-    printtable(students, currentclass, length);
+    
+    // printtable(students, currentclass, length);
 
+    //write the data to the outputfile in the table format
     fout.open(destfile);
     writetofile(fout, students, currentclass, length);
     fout.close(); 
 
+    //delete structs
     delete[] students;
     delete currentclass;
     return 0;
@@ -140,15 +149,13 @@ void calcClassStats(Student* students, Class* currentclass, int& length) {
     float gradeproportions[5] = {0,0,0,0,0}; //temp arr to hold {% of A, %B, %C, %D, %F}
 
     copyClassDataFromBuffer(students, length, averages, lettergrades);
-    // currentclass->average = 0;
     for (int i = 0; i < length; i++)  {
         tmpavg += averages[i];
     }
     currentclass->average = (tmpavg / float(length)); //the class's overall average
     sort(averages, (averages+(length-1))); //sort the class averages array
-    
-    currentclass->min = averages[length-1]; //MAX
-    currentclass->max = averages[0]; //MIN
+    classAverages(students, currentclass, length);
+    testMinMax(students, currentclass, length);
     calcClassLetterGradesStats(currentclass, length, lettergrades); //will calc and grab the %proportion for each letter grade
 }
 
@@ -158,7 +165,6 @@ void calcClassLetterGradesStats(Class* currentclass, int& length, string* letter
     int counter[5] = {0,0,0,0,0}; //{A, B, C, D, F}
     //counts the frequency of each letter grade
     for (int i = 0; i < length; i++) {
-        // cout << "\n----lettergrades[" << i << "]: " << lettergrades[i] << endl;
         if (lettergrades[i] == "A") {
             counter[0] ++;
         } else 
@@ -177,11 +183,8 @@ void calcClassLetterGradesStats(Class* currentclass, int& length, string* letter
     }
     //divides the frequency with class length and stores in their own respective element.
     for (int j = 0; j < 5; j++) {
-        // cout << "counter[" << j << "]: " << counter[j] << "    length: " << length << endl;
         tmpavg += counter[j];
-        // cout << "tmpavg: " << tmpavg << endl;
         currentclass->letterGradeProportions[j] = 100*(tmpavg/length);
-        // cout << "currclass->lettergradeprop[" << j << "]: " << currentclass->letterGradeProportions[j] << endl;
         tmpavg = 0;
         }
             
@@ -226,19 +229,13 @@ string promptdestfile() {
     return destfile;
 }
 
-void debugprintstruct(Student* student, int& length) {
-    for (int i = 0; i < length; i++) {
-        cout << "current line: " << student[i].fname << " " << student[i].lname << " " << student[i].scores[0] << " " << student[i].scores[1] 
-            << " " << student[i].scores[2]  << " " << student[i].scores[3] << endl;
-    }
-}
-
 //get length of source file
 void findlength(ifstream& fin, int& length) {
     string tmp;
     while (!fin.eof() && getline(fin, tmp)) {
         length ++;
     }
+    
     fin.seekg(0);
 }
 
@@ -249,9 +246,6 @@ void copytobuffer(ifstream& fin, Student* student, int& length) {
     while (!fin.eof()){
         while (getline(fin, currentline)) {
             stringstream ss(currentline);
-            // cout << currentline << endl;
-            // debugprintstruct(student, length);
-
             //The order is fixed so input into struct in the given order.
             ss >> student[linecounter].fname;
             ss >> student[linecounter].lname;
@@ -265,9 +259,8 @@ void copytobuffer(ifstream& fin, Student* student, int& length) {
     }
 }
 
-
 //find average of test score for each individual student
-void calcAverageTestScore(Student* students, int &length) {
+void calcAverageTestScore(Student* students, Class* currentclass, int &length) {
     float tmpavg=0;
     //for each student
     for (int currstudent = 0; currstudent < length; currstudent ++){
@@ -287,7 +280,6 @@ void printtable(Student* students,Class* currentclass, int &length) {
     cout << setfill(' ') << "fname" << setw(15) <<  "lname" << setw(20) <<  "test1" << setw(10)  << "test2" << setw(10) << "test3" << setw(11) <<  "test4" << setw(9) << "avg" << setw(11) << "grade" << endl;
     cout << setfill('=') << setw(93) << '\n';
     for (int currstudent = 0; currstudent < length; currstudent++) {
-        // cout << "yoyoyoyo  : " << students[currstudent].lettergrade << endl;
         cout << left << setfill(' ') <<
             setw(15) << students[currstudent].fname << 
             setw(15) << students[currstudent].lname << 
@@ -301,13 +293,22 @@ void printtable(Student* students,Class* currentclass, int &length) {
     }
     cout << setfill('*') << setw(93) << '\n';
     cout << left << setfill(' ') 
-        << setw(15) << "Class Average: " 
-        << fixed << setw(15) << right << setprecision(2)
-        << currentclass->average << endl;
-    cout << setw(15) << left << "Class Max:" 
-        << setw(15) << right << currentclass->max << '\n'
-        << setw(15) << left << "Class Min:" 
-        << setw(15) << right << currentclass->min << '\n';
+        << setw(20) << "Class Average: " 
+        << fixed << setw(20) << right << setprecision(2)
+        << currentclass->testaverages[0] 
+        << setw(10) << currentclass->testaverages[1] 
+        << setw(10) << currentclass->testaverages[2] 
+        << setw(10) << currentclass->testaverages[3] << endl;
+    cout << setw(20) << left << "Class Max:" 
+        << setw(20) << right << currentclass->max[0]
+        << setw(10) << currentclass->max[1]
+        << setw(10) << currentclass->max[2]
+        << setw(10) << currentclass->max[3] << '\n'
+        << setw(20) << left << "Class Min:" 
+        << setw(20) << right << currentclass->min[0]
+        << setw(10) << currentclass->min[1]
+        << setw(10) << currentclass->min[2]
+        << setw(10) << currentclass->min[3] << '\n';
     cout << setfill('=') << setw(93) << "\n";
     cout << left  << setfill(' ')
         << setw(10) << "Total As: " << setw(19) <<right << int(currentclass->letterGradeProportions[0]) << "%\n"
@@ -325,7 +326,6 @@ void writetofile(ofstream& fout,Student* students, Class* currentclass, int& len
     fout << setfill(' ') << "fname" << setw(15) <<  "lname" << setw(20) <<  "test1" << setw(10)  << "test2" << setw(10) << "test3" << setw(11) <<  "test4" << setw(9) << "avg" << setw(11) << "grade" << endl;
     fout << setfill('=') << setw(93) << '\n';
     for (int currstudent = 0; currstudent < length; currstudent++) {
-        // cout << "yoyoyoyo  : " << students[currstudent].lettergrade << endl;
         fout << left << setfill(' ') <<
             setw(15) << students[currstudent].fname << 
             setw(15) << students[currstudent].lname << 
@@ -339,13 +339,22 @@ void writetofile(ofstream& fout,Student* students, Class* currentclass, int& len
     }
     fout << setfill('*') << setw(93) << '\n';
     fout << left << setfill(' ') 
-        << setw(15) << "Class Average: " 
-        << fixed << setw(15) << right << setprecision(2)
-        << currentclass->average << endl;
-    fout << setw(15) << left << "Class Max:" 
-        << setw(15) << right << currentclass->max << '\n'
-        << setw(15) << left << "Class Min:" 
-        << setw(15) << right << currentclass->min << '\n';
+        << setw(20) << "Class Average: " 
+        << fixed << setw(20) << right << setprecision(2)
+        << currentclass->testaverages[0] 
+        << setw(10) << currentclass->testaverages[1] 
+        << setw(10) << currentclass->testaverages[2] 
+        << setw(10) << currentclass->testaverages[3] << endl;
+    fout << setw(20) << left << "Class Max:" 
+        << setw(20) << right << currentclass->max[0]
+        << setw(10) << currentclass->max[1]
+        << setw(10) << currentclass->max[2]
+        << setw(10) << currentclass->max[3] << '\n'
+        << setw(20) << left << "Class Min:" 
+        << setw(20) << right << currentclass->min[0]
+        << setw(10) << currentclass->min[1]
+        << setw(10) << currentclass->min[2]
+        << setw(10) << currentclass->min[3] << '\n';
     fout << setfill('=') << setw(93) << "\n";
     fout << left  << setfill(' ')
         << setw(10) << "Total As: " << setw(19) <<right << int(currentclass->letterGradeProportions[0]) << "%\n"
@@ -354,4 +363,87 @@ void writetofile(ofstream& fout,Student* students, Class* currentclass, int& len
         << setw(10) << "Total Ds: " << setw(19) <<right << int(currentclass->letterGradeProportions[3]) << "%\n"
         << setw(10) << "Total Fs: " << setw(19) <<right << int(currentclass->letterGradeProportions[4]) << "%" << endl;
     fout << right << setfill('=') << setw(93) << ' ' << endl;
+}
+
+void classAverages(Student* students, Class* currentclass, int& length) {
+    int testnumber = 0;
+    string tmpv; //will copy the string value from the student
+    int tmpnum; //will store the value converted from string to int
+
+    //store all the student's tests into class struct testscores vectors
+    for (int i = 0; i < length; i++) {
+        if (testnumber == 0) {
+            tmpv = students[i].scores[testnumber];
+            tmpnum = stoi(tmpv);
+             currentclass->test1scores.push_back(tmpnum);
+        }
+        else if (testnumber == 1) {
+            tmpv = students[i].scores[testnumber];
+            tmpnum = stoi(tmpv);
+            currentclass->test2scores.push_back(tmpnum);
+        }
+        else if (testnumber == 2) {
+            tmpv = students[i].scores[testnumber];
+            tmpnum = stoi(tmpv);
+            currentclass->test3scores.push_back(tmpnum);
+        }
+        else {
+            tmpv = students[i].scores[testnumber];
+            tmpnum = stoi(tmpv);
+            currentclass->test4scores.push_back(tmpnum);
+        }
+        if (i == (length-1) && testnumber == 3) {
+            break;
+        }
+        /*once the final student has been processed,
+         move to next test starting from student[0] */
+        if (i == length -1){
+            testnumber++;
+            i = -1;
+        }
+    }
+
+    //find each test's  total class avg
+    float tmpavg=0;
+    //test1 loop
+    for (int i = 0; i < length; i++) {
+        tmpavg += currentclass->test1scores[i];
+    }
+    currentclass->testaverages[0] = tmpavg/float(length); //test1 avg
+    tmpavg=0;
+    //test2 loop
+    for (int i = 0; i < length; i++) {
+        tmpavg += currentclass->test2scores[i];
+    }
+    currentclass->testaverages[1] = tmpavg/float(length); //test2 avg
+    tmpavg=0;
+    //test3 loop
+    for (int i = 0; i < length; i++) {
+        tmpavg += currentclass->test3scores[i];
+    }
+    currentclass->testaverages[2] = tmpavg/float(length); //test3avg
+    tmpavg=0;
+    //test4 loop
+    for (int i = 0; i < length; i++) {
+        tmpavg += currentclass->test4scores[i]; 
+     }
+    currentclass->testaverages[3] = tmpavg/float(length); //test4 avg
+}
+
+void testMinMax(Student* students, Class* currentclass, int& length){
+    //sort all the vectors that store test scores for whole class
+    sort(currentclass->test1scores.begin(), currentclass->test1scores.end());
+    sort(currentclass->test2scores.begin(), currentclass->test2scores.end());
+    sort(currentclass->test3scores.begin(), currentclass->test3scores.end());
+    sort(currentclass->test4scores.begin(), currentclass->test4scores.end());
+    //save first element -- the smallest
+    currentclass->min[0] = currentclass->test1scores[0];
+    currentclass->min[1] = currentclass->test2scores[0];
+    currentclass->min[2] = currentclass->test3scores[0];
+    currentclass->min[3] = currentclass->test4scores[0];
+    //save final element -- the largest
+    currentclass->max[0] = currentclass->test1scores[length-1];
+    currentclass->max[1] = currentclass->test2scores[length-1];
+    currentclass->max[2] = currentclass->test3scores[length-1];
+    currentclass->max[3] = currentclass->test4scores[length-1];
 }
