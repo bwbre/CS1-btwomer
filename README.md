@@ -90,6 +90,27 @@ Progress:    || 100%          <br />
 Location:    || CS1-btwomer/labs/array  <br />
 Self-Grade:  || 100%          <br />
 Notes:       || Prompt user for array length and the corresponding values in the array. Then, perform various operations against the array.
+    
+----Lab 9 <br/>
+Name:        || Vectors    <br />
+Description: || change numbers between different base systems <br />
+Date:        || 04/21/2023    <br />
+Due Date:    || 04/21/2023     <br />
+Progress:    || 100%          <br />
+Location:    || CS1-btwomer/labs/vectors  <br />
+Self-Grade:  || 100%          <br />
+Notes:       || perform calculations to convert a value between different base number systems
+
+----Lab 10 <br/>
+Name:        || fileio    <br />
+Description: || copy data from one file to a table in another file <br />
+Date:        || 05/01/2023    <br />
+Due Date:    || 05/01/2023     <br />
+Progress:    || 100%          <br />
+Location:    || CS1-btwomer/labs/fileio  <br />
+Self-Grade:  || 100%          <br />
+Notes:       || copy data from source file, format it, then write it to another output file
+
 
 
 <br />
@@ -152,6 +173,16 @@ Progress:  || 100%          <br />
 Location   || CS1-btwomer/assignments/strings  <br />
 Self-Grade:|| 100%          <br />
 Notes:     || will remove duplicate repeating characters from a name<br/>
+
+<br/>    ----Homework 08 <br/>
+Name:      || Gradebook Program     <br />
+Date :     || 05/01/2023    <br />
+Due Date   || 05/01/2023    <br />
+Progress:  || 100%          <br />
+Location   || CS1-btwomer/assignments/struct  <br />
+Self-Grade:|| 100%          <br />
+Notes:     || copy data from a source file, perform calculcations, format, then output into a new file. had lots of great ideas going into it, then ultimately kept changing things until the whole code was messy, but too far into it to start over.<br/>
+
 
 </details>
 
