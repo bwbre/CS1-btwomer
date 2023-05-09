@@ -180,8 +180,8 @@ Date :     || 05/01/2023    <br />
 Due Date   || 05/01/2023    <br />
 Progress:  || 100%          <br />
 Location   || CS1-btwomer/assignments/struct  <br />
-Self-Grade:|| 80%          <br />
-Notes:     || copy data from a source file, perform calculcations, format, then output into a new file. did not realize until the very end that i was supposed to find the averages for each test... smooth brain thought it was class average for the entire class' overall avg.<br/>
+Self-Grade:|| 100%          <br />
+Notes:     || copy data from a source file, perform calculcations, format, then output into a new file. had lots of great ideas going into it, then ultimately kept changing things until the whole code was messy, but too far into it to start over.<br/>
 
 
 </details>
