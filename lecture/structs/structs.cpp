@@ -139,7 +139,13 @@ void printValue(Rectangle& rect){
 // }
 
 
+/*
+use the "." when it isnt heap allocated.
+    struct.randomv
+use "->" when it is heap allocated ****the "->" is really acting as a de referenec to a pointer*** same as ptrtostruct->randomv
+    struct->randomv
 
+*/
 
 
 

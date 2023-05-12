@@ -1,0 +1,4 @@
+psuedo code is written differently
+    can be used to write out code in easier clearer - universal formatted - language
+
+    
