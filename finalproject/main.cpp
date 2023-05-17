@@ -19,96 +19,7 @@ Create a folder called finalproject
 8.  Use header files and cpp files to break the code into multiple files (5 points)
 9.  Create a Makefile inside the finalproject folder (5 points)
 10. Submit screenshot showing your program working to D2L. (5 points)
-
-Struct player
-    -struct#
-    -name
-    -previously used words
-    -correct guesses
-    -incorrect guesses
-    -previously used words
-    -winrate
-    -average number of guesses per wins.
-    -previously used file
-
-Start of game----
-    -prompt player if they want to create a new user profile or load an old profile
-        -IF they want to load ---> Load 
-        -Else ---> create new player struct
-
-void launchmenu(); //parent fcn for the menu at launch. Will prompt the player to load a previous save, start a new game, or exit game.
-    void printmenu(); // will print the main launch menu
-    void printloadmenu(); // will print the menu players see if they decide to load a profile
-    void printstats(); // will print out stats
-
-read list of words into vector
-    --check for changes to word file
-    --find number of words (aka lines) in file to be used later
-    --choose a random word
-        --record the lines/words that have already been guessed so the player wont see the same words over and over
-    --read word to vector
---choose random word and store to array --- namespace?
-    -vector<string> word bank in -- namespace?
-    --store word into locally scoped "reference word" string
-            --get length
-            --using length, create a blank "playerknowninfo" string array with the same length that will be populated with letters from correct guesses
-                * once this is full, player has guessed all the correct letters
-                * will also be used to fill in the spaces at the bottom with their respective position in the playerknowninfo char arr
-
-*************
-void readfile(); // the parent fcn for fetching word from file and the related info
-    void checkfile(); // compare filesizes - if the current file size is not the exact same as prev used one, will reset prev. used words.
-    void countfilelines(); 
-    void getword(); //get random word and it's size, then store both into CurrentRound namepspace - also making sure to record the line so it wont be grabbed again later
-    void initplayerknowninfo(); //will be the same size as the known word, but will have ' ' filling in the elements. they will be replaced with letters as the player guesses correctly.
-
-************
-
-
-
---ask player to guess the word one character at a time.
-    --LOOP count the number of guesses and check whether or not they exceed the allowed
-        --check whether the letter has already been guesses
-        --search word for letter
-            --IF correct guess, save indexes for the locations that contain the letters
-                --using indexes, fill in the blank spaces for the guessed wor for the corresponding 
-        --delete letter from string array if correct guess
-            --using the saved indexes of letters that were guessed correctly
-            --clear tmp letter indexes so it can be re used next guess
-        --once the string array is empty, player has guessed all the correct letter.
-        --re-print the screen
-
-void playerturn();
-    void checkremainingguesses(); //check whether or not the player has any remaining guesses
-    void checkguess(); // after the player guesses a letter, test to see if it is in the unknown word.
-        void scanword(); //scan unknown word for letter that was guesses, and save the indexes for where they are located
-    void updateknowninfo(); // using the indexes from checkguess - the locations where the correctly guessed letter is locate - then update playerknowninfo
-        void checkforwin(); // if updateknown info is completely populated -- is == to unknown word, then player wins this current round
-    void CALL PRINT-------
-
-void printscreen(); // will be called at the end of every turn - will clear, then update the screen
-    void clearscreen(); // simple clear screen fcn.
-    void printstage();
-        void getbodystatus(); // using numberofguesses in currentRound namespace to determine how many body parts should be printed - if any.
-    void printblankspaces(); // the spaces below the stage that show the player playerknowninfo. effectively giving player a visualization of the unknown word in reference to what they know.. ex: unknown word is "apple" - blankspaces will look like "_ p p _ E" if the player correctly guesses "p" and "e".
-    print prevguessedletters(); // below the blank spaces, print out all of the previously guessed letters. Allows the player to keep track of prev guesses - may help player with formulating guesses.
-    
-
-
-
---print screen
-    --print stage
-        --use a fcn to return what body parts are printed based on incorrect guesses.
-    --print blank spaces below stage
-        --using length, create a blank spaces matching "playerknowninfo" size
-                * once this is full, player has guessed all the correct letters
-        --fill spaces for the correct letters that were guessed.
-    --print previous guesses below everything to help player track previous guesses.
 */
-
-
-
-
 
 #include <iostream>
 #include <iomanip>
@@ -122,30 +33,42 @@ void printscreen(); // will be called at the end of every turn - will clear, the
 
 using namespace std;
 
+/* used in lecture as well as previous labs.*/
+#ifdef _WIN32
+#define clearScreen() system ("cls") // not secure!
+#else
+#define clearScreen() system ("clear") // not secure!
+#endif
+
 
 //will store temporary variables that will only be used for this round.
 namespace GameData {
-    vector<string> unknownword; //current word being guessed
+    string unknownword; //current word being guessed
     int numberofwords; // number of words (AKA lines) in the wordbank file
-    /* will be the same length as unknown word, but will start blank and each correct 
-    letter that is guessed will be passed into it */
-    vector<string> playerknowninfo; 
-
-    vector<string> prevguessedletters; // will hold all the previously guessed letters this round.
+    vector<int> previouslyusedwords; //the line positions of the words in the file. will be cleared if a new file is used.
 
     int roundnumber; // number of rounds the player has played this session
-    int wordlength; //length of the word being actively used
-    int numberofguesses; //current number of guesses in the current game - will be referenced when checking number of player's guesses
+
+    int wins;
+    int numberofguessesstats;
+    float avgguessesperwin; 
 }
 
 struct Player {
     int playernumber; //will allow multiple "SAVE FILES" by player number
+    /* will be the same length as unknown word, but will start blank and each correct 
+    letter that is guessed will be passed into it */
+    vector<string> playerknowninfo; 
+    int wordlength; // length of unknown word
+    vector<string> prevguessedletters; // will hold all the previously guessed letters this round.
+    int numberofincorrectguesses;
+        int numberofguesses; //current number of guesses in the current game - will be referenced when checking number of player's guesses
+
+
     string playername; 
-    vector<int> previouslyusedwords; //the line positions of the words in the file. will be cleared if a new file is used.
     int correctguesses;
     int incorrectguesses;
-    float winrate;
-    float avgguessesperwin; 
+
     int previouslyusedfile; //record file size in bits
 };
 
@@ -155,27 +78,30 @@ void launchmenu(); //parent fcn for the menu at launch. Will prompt the player t
     void readsavefile(); // will check to see whether or not an existing save file is present, then grab saved profiles
     void printstats(); // will print out stats
 
-void readfile(); // the parent fcn for fetching word from file and the related info
+void readfile(Player*); // the parent fcn for fetching word from file and the related info
     void checkfile(); // compare filesizes - if the current file size is not the exact same as prev used one, will reset prev. used words.
-    void countfilelines(ifstream&); //count the number of lines/length of file
+    void countfilelines(ifstream&, int&); //count the number of lines/length of file
     void getword(ifstream&); //get random word and it's size, then store both into CurrentRound namepspace - also making sure to record the line so it wont be grabbed again later
-    void initplayerknowninfo(); //will be the same size as the known word, but will have ' ' filling in the elements. they will be replaced with letters as the player guesses correctly.
+    void initplayerknowninfo(Player*); //will be the same size as the known word, but will have ' ' filling in the elements. they will be replaced with letters as the player guesses correctly.
 
-void playerturn();
-    void checkremainingguesses(); //check whether or not the player has any remaining guesses
-    void checkguess(); // after the player guesses a letter, test to see if it is in the unknown word.
-        void scanword(); //scan unknown word for letter that was guesses, and save the indexes for where they are located
-    void updateknowninfo(); // using the indexes from checkguess - the locations where the correctly guessed letter is locate - then update playerknowninfo
-        void checkforwin(); // if updateknown info is completely populated -- is == to unknown word, then player wins this current round
+void game(Player*);
+char playerturn(Player*);
+    bool checkremainingguesses(Player*); //check whether or not the player has any remaining guesses
+    void checkguess(Player*); // after the player guesses a letter, test to see if it is in the unknown word.
+        void scanword(Player*, char); //scan unknown word for letter that was guesses, and save the indexes for where they are located
+    void updateknowninfo(Player*); // using the indexes from checkguess - the locations where the correctly guessed letter is locate - then update playerknowninfo
+        bool checkforwin(Player*); // if updateknown info is completely populated -- is == to unknown word, then player wins this current round
     // void CALL PRINT-------
+bool playagainprompt();
 
-void printscreen(); // will be called at the end of every turn - will clear, then update the screen
-    void clearscreen(); // simple clear screen fcn.
-    void printstage(); //print the gallows and hanging man body parts
+void printscreen(Player*); // will be called at the end of every turn - will clear, then update the screen
+    void printstage(Player*); //print the gallows and hanging man body parts
         void getbodystatus(); // using numberofguesses in currentRound namespace to determine how many body parts should be printed - if any.
-    void printblankspaces(); // the spaces below the stage that show the player playerknowninfo. effectively giving player a visualization of the unknown word in reference to what they know.. ex: unknown word is "apple" - blankspaces will look like "_ p p _ E" if the player correctly guesses "p" and "e".
-    void prevguessedletters(); // below the blank spaces, print out all of the previously guessed letters. Allows the player to keep track of prev guesses - may help player with formulating guesses.
+    void printblankspaces(Player*); // the spaces below the stage that show the player playerknowninfo. effectively giving player a visualization of the unknown word in reference to what they know.. ex: unknown word is "apple" - blankspaces will look like "_ p p _ E" if the player correctly guesses "p" and "e".
+    void prevguessedletters(Player*); // below the blank spaces, print out all of the previously guessed letters. Allows the player to keep track of prev guesses - may help player with formulating guesses.
     
+void initgamedata(Player*);
+void stats();
 
 
 
@@ -183,60 +109,297 @@ void printscreen(); // will be called at the end of every turn - will clear, the
 
 
 int main(int argc, char* argv[]) {
+    bool keeprunning=true;
     srand(time(0)); //declaring at start of program because it may be used more than once.
     GameData::numberofwords = 0; // start of program, set to 0 so program can iteratively add later when getting a line count.
     GameData::roundnumber = 0; // start of program, set round number to 0
+
     // launchmenu();
     DEBUG("start of program");
+    Player *player = new Player;
+    do {
+    readfile(player);
 
+    printscreen(player);
+    
+    
+    game(player);
+    keeprunning = playagainprompt();
+    // DEBUG("BEFORE INIT");
+    initgamedata(player);
+    }
+    while (keeprunning == true);
 
-    readfile();
-    // delete Player;
+    stats();
+    delete player;
     // playerturn();
 }
 
+void stats() {
+    clearScreen();
+    cout << "\nFun Stats: \n" << endl; 
+    cout << setfill(' ') << setw(24) << "Rounds played" << GameData::roundnumber+1 << endl;
+    cout << setw(24) << "Total # of Guesses" << GameData::numberofguessesstats << endl;
+    cout << setw(24) << "Winrate" << float(GameData::wins)/float(GameData::roundnumber+1) << endl;
+}
+
+void initgamedata(Player* player) {
+    player->numberofincorrectguesses = 0;
+    // for (int i = 0; i < player->wordlength; i++){
+    //     cout << "test cout bef [" << "i]: " <<  player->playerknowninfo[i] << endl;
+    // }
+    for (int i = player->wordlength-1; i >= 0; i--) {
+        player->playerknowninfo.pop_back();
+        
+    }
+    for (int i = 0; i < player->numberofguesses; i++) {
+        player->prevguessedletters.pop_back();
+    }
+    // for (int i = 0; i < player->wordlength; i++){
+    //     cout << "test cout afte [" << "i]: " <<  player->playerknowninfo[i] << endl;
+    // }
+    
+    player->numberofincorrectguesses = 0;
+    player->wordlength = 0;
+    player->numberofguesses = 0;
+
+}
+
+char playerturn(Player* player) {
+    string guesstmp;
+    bool validinput = false;
+    do {
+        cout << "Enter your guess: ";
+        cin >> guesstmp;
+        if (guesstmp.length() > 1) {
+            cout << "invalid input.. please only enter a single letter that you haven't previously guessed." << endl;
+            validinput = false;
+            cin.clear();
+            continue;
+        } 
+        for (int i = 0; i < GameData::roundnumber; i++) {
+            if (guesstmp == player->playerknowninfo[i] || guesstmp == player->prevguessedletters[i]){
+                continue;
+            }
+        }
+        validinput = true;
+    }
+    while (validinput == false);
+    // cout << "Player input: " << guesstmp;
+    player->numberofguesses++; //add to counter
+    GameData::numberofguessesstats++;
+    player->prevguessedletters.push_back(guesstmp); //save to player struct vector
+    char guess = guesstmp[0];
+    return guess;
+} 
+
+//after a round is finished, prompt a player whether or not they want to keep playing
+bool playagainprompt() {
+    string choice;
+    cout << "If you would you like to play again enter Y/y";
+    cin >> choice;
+    if (choice == "Y" || choice == "y")
+        return true; //if they prompted Y then it will return true to keeprunning bool in main()
+    return false;
+}
+
+//the actual gameplay takes place here
+void game(Player* player) {
+    player->numberofguesses = 0;
+    char guess;
+    bool keeprunning = true;
+    do {
+        // cout << "start of turn" << endl;
+        guess = playerturn(player);
+
+        scanword(player, guess);     
+        // checkforwin(); 
+        printscreen(player);
+        keeprunning = checkforwin(player);
+    }
+    while (keeprunning == true);
+    cout << "end of game.." << endl;
+}
+
+// if updateknown info is completely populated -- is == to unknown word, then player wins this current round
+bool checkforwin(Player* player) {
+    bool win = true;
+    string tmpunknown;
+    string tmpplayerknown;
+    bool remainingguesses;
+    remainingguesses = checkremainingguesses(player);
+    for (int i=0; i < player->wordlength; i++) {
+        tmpunknown = GameData::unknownword[i];
+        tmpplayerknown = player->playerknowninfo[i];
+        if (tmpunknown != tmpplayerknown) {
+            // cout << "GameData::unknownword[i] != player->playerknowninfo[i] at: " << i << " --> " << GameData::unknownword[i] << " != " << player->playerknowninfo[i] << endl;
+            win = false;
+        }
+    }
+    if (win == true) {
+        cout << "\nCongratulations! you correctly guessed the word!" << endl;
+        GameData::wins++;
+        GameData::roundnumber++;
+        return false;
+    }
+    if (win != true && remainingguesses !=true) {
+        cout << "\nYou ran out of guesses.. better luck next time." << endl;
+        GameData::roundnumber++;
+        return false;
+    }
+    return true;
+}
+
+//scan unknown word for letter that was guesses, and update the playerknowninfo
+void scanword(Player* player, char guess) {
+    bool isfound = false;
+    // cout << "start of scanword  " << player->wordlength << endl;
+    
+    for (int i=0; i < player->wordlength; i++) {
+        // cout << "GameData::unknownword[" << i << "]: " << GameData::unknownword[i] << endl; 
+        // cout << "test: player->playerknowninfo[i] : " << player->playerknowninfo[i] << endl;
+        if (GameData::unknownword[i] == guess) {
+            // cout << "correct guess here, saved to player->playerknowninfo[" << i << "]: " << player->playerknowninfo[i] << endl;
+            player->playerknowninfo[i] = guess;
+            // cout << "Playerknown info[" << i <<"]: " << player->playerknowninfo[i] << endl;
+            isfound = true;
+        }
+    }
+    if (isfound == false) 
+        player->numberofincorrectguesses++;
+}
+
+//if player has remaining guesses returns true
+bool checkremainingguesses(Player* player) {
+    if (player->numberofincorrectguesses > 5) {
+        return false;
+    }
+    return true;
+}
+
+// will be called at the end of every turn - will clear, then update the screen
+void printscreen(Player* player){
+    clearScreen();
+    printstage(player); //print the gallows, hanging man body parts, and the number of guesses
+    printblankspaces(player); // the spaces below the stage that show the player playerknowninfo. effectively giving player a visualization of the unknown word in reference to what they know.. ex: unknown word is "apple" - blankspaces will look like "_ p p _ E" if the player correctly guesses "p" and "e".
+    prevguessedletters(player); // below the blank spaces, print out all of the previously guessed letters. Allows the player to keep track of prev guesses - may help player with formulating guesses.
+    // DEBUG("END OF")
+}
+
+void printstage(Player* player) {
+    // GameData::numberofguesses = 5;
+    cout << left << "Round number: " << GameData::roundnumber+1 << endl;
+    cout << setw(15) << "\nIncorrect Guesses: " << player->numberofincorrectguesses << " / 6\n" << endl;
+    cout << "    ---------" << endl;
+    cout << setfill(' ') << "    ||/    |" << endl;
+    cout << "    ||     ";
+    if (player->numberofincorrectguesses >= 1){
+            cout << '0';
+    }
+    cout << "\n    ||    ";
+    if (player->numberofincorrectguesses >= 4){
+        cout << "/|\\";
+    }
+    else if(player->numberofincorrectguesses == 2) {
+        cout << " |";
+    } else if(player->numberofincorrectguesses == 3){
+        cout << "/|";
+    }
+    cout << "\n    ||    ";
+    if (player->numberofincorrectguesses == 5) {
+        cout << "/";
+    }
+    else if (player->numberofincorrectguesses >= 6) {
+        cout << "/ \\" ;
+    }
+    cout << "\n    ||\n    ||\n" << endl;
+}
+
+void printblankspaces(Player* player) {
+    for (int i = 0; i < player->wordlength; i++) { 
+        if (player->playerknowninfo[i] != " ") {
+            cout << ' ' << player->playerknowninfo[i]; 
+        } else {
+            cout << " ?";
+        }    
+    }
+    cout << setfill('-') << setw(15) << "\n\n" << endl;
+
+}
+
+void prevguessedletters(Player* player) {
+    cout << "previously Guessed Letters:\n    ";
+    
+    for (int i=0; i < player->numberofguesses && player->numberofguesses != 0; i++ ) { 
+        // cout << "num guess: " << GameData::numberofguesses << endl;
+        cout << ' ' << player->prevguessedletters[i]; 
+    }
+    cout << endl;
+}
+
 // the parent fcn for fetching word from file and the related info
-void readfile() { 
+void readfile(Player* player) { 
+    int filelength;
     DEBUG("start of readfile");
 
     ifstream fin;
     fin.open("../finalproject/files/wordbank.txt");
 
+    // if no rounds have been played, then find file length.
+    if (GameData::roundnumber == 0 ) 
+        countfilelines(fin, filelength); 
+    
     // checkfile(); // compare filesizes - if the current file size is not the exact same as prev used one, will reset prev. used words.
-    countfilelines(fin); //count the number of lines/length of file
-         
-    // initplayerknowninfo(); //will be the same size as the known word, but will have ' ' filling in the elements. they will be replaced with letters as the player guesses correctly.
-    DEBUG("outside countfilelines");
-    // DEBUG(linecounter);
+    getword(fin);     
+    // DEBUG("outside countfilelines");
+    initplayerknowninfo(player);     
     fin.close();
 }
 
+//will be the same size as the known word, but will have ' ' filling in the elements. they will be replaced with letters as the player guesses correctly.
+void initplayerknowninfo(Player* player) {
+    int wordlen = 0;
+    for (int i=0; i < GameData::unknownword.length(); i++) {
+        wordlen++;
+        player->playerknowninfo.push_back(" ");
+    }
+    player->wordlength = wordlen;
+}
 
 //get random word and it's size, then store both into CurrentRound namepspace - also making sure to record the line so it wont be grabbed again later
 void getword(ifstream& fin) {
-    if (GameData::roundnumber = 0 ) countfilelines(fin); // if no rounds have been played -- the first round, then find file length.
+    int filelength=0;
 
-    int rnum = random()%GameData::numberofwords;
+    int rnum = random()%GameData::numberofwords; // generate random number
+    //if the random number line chosen is the same as any previously chosen lines and all of the words havent been used, then generate a new one.
+    for (int i=0; i < GameData::roundnumber && GameData::roundnumber <= GameData::numberofwords; i++) {  
+        if (rnum == GameData::previouslyusedwords[i]) {
+            int rnum = random()%GameData::numberofwords;
+            i=0;
+        }
+    }
     cout << "rnum: " << rnum << endl;
     string word;
-    fin.seekg(0, fin.beg);
-    cout << "fin tell" << fin.tellg() << endl;
-    
-    while (getline(fin, word)) {
-        // if (tmp[linecounter == rnum]) 
-        cout << word << endl;
-    }
 
-    cout << "word " << word << endl;
+    fin.seekg(0, fin.beg);
+    for (int i = 0; i <= rnum; i++) {
+        getline(fin, word);
+    }
+    GameData::unknownword = word;
+    cout << "unknownword: " << GameData::unknownword << endl;
+    GameData::previouslyusedwords.push_back(rnum);
 }
 
+//count the number of lines/length of file
 void countfilelines(ifstream& fin, int& linecounter) {
     DEBUG("start of copyfilelines");
-    string tmp[linecounter];
-    while (getline(fin, tmp))  {
+    string tmp;
+    while (!fin.eof())  {
+        getline(fin, tmp);
         linecounter++;
-        cout << linecounter << endl;
+        // cout << linecounter << endl;
     }
+    GameData::numberofwords = linecounter;
 }
 
 // void checkfile(iftstream fin) {
