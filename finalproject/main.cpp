@@ -46,7 +46,6 @@ namespace GameData {
     string unknownword; //current word being guessed
     int numberofwords; // number of words (AKA lines) in the wordbank file
     vector<int> previouslyusedwords; //the line positions of the words in the file. will be cleared if a new file is used.
-
     int roundnumber; // number of rounds the player has played this session
 
     int wins;
@@ -62,7 +61,7 @@ struct Player {
     int wordlength; // length of unknown word
     vector<string> prevguessedletters; // will hold all the previously guessed letters this round.
     int numberofincorrectguesses;
-        int numberofguesses; //current number of guesses in the current game - will be referenced when checking number of player's guesses
+    int numberofguesses; //current number of guesses in the current game - will be referenced when checking number of player's guesses
 
 
     string playername; 
@@ -122,11 +121,11 @@ int main(int argc, char* argv[]) {
 
     Player *player = new Player;
     do {
-    readfile(player);
-    printscreen(player);
-    game(player);
-    keeprunning = playagainprompt();
-    initgamedata(player);
+        readfile(player);
+        printscreen(player);
+        game(player);
+        keeprunning = playagainprompt();
+        initgamedata(player);
     }
     while (keeprunning == true);
 
@@ -139,11 +138,8 @@ void game(Player* player) {
     char guess;
     bool keeprunning = true;
     do {
-        // cout << "start of turn" << endl;
         guess = playerturn(player);
-
         scanword(player, guess);     
-        // checkforwin(); 
         printscreen(player);
         keeprunning = checkforwin(player);
     }
@@ -315,7 +311,7 @@ char playerturn(Player* player) {
 
 bool playagainprompt() {
     string choice;
-    cout << "If you would you like to play again enter Y/y";
+    cout << "If you would you like to play again enter Y/y: ";
     cin >> choice;
     if (choice == "Y" || choice == "y")
         return true; //if they prompted Y then it will return true to keeprunning bool in main()
