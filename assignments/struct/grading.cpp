@@ -113,14 +113,17 @@ int main(int argc, char* argv[]) {
     currentclass->size = length;
     Student *students = new Student[length];
     copytobuffer(fin, students, length);
+    cout << "here" << endl;
     fin.close();
 
     //use data in buffer for calculations
+        cout << "here2" << endl;
     calcAverageTestScore(students, currentclass, length);
     calclettergrade(students, length);
     calcClassStats(students, currentclass, length);
+        cout << "here3" << endl;
     
-    // printtable(students, currentclass, length);
+    printtable(students, currentclass, length);
 
     //write the data to the outputfile in the table format
     fout.open(destfile);
